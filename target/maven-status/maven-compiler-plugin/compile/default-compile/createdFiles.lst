@@ -1,1 +1,9 @@
+com\dp\supps\models\User.class
+com\dp\supps\models\Order.class
+com\dp\supps\models\Product.class
+com\dp\supps\models\Review.class
+com\dp\supps\models\Goal.class
 com\dp\supps\App.class
+com\dp\supps\models\Ingredient.class
+.netbeans_automatic_build
+com\dp\supps\models\Category.class
