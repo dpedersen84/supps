@@ -1,6 +1,6 @@
 drop table if exists review;
 drop table if exists product_ingredient;
-drop table if exists order_products;
+drop table if exists order_product;
 drop table if exists public."order";
 drop table if exists product;
 drop table if exists ingredient;
@@ -43,6 +43,7 @@ create table product_ingredient(
 
 create table review(
 	id serial primary key not null,
+	productId int not null references product(id),
 	rating int not null,
 	description varchar(300)
 );
@@ -62,7 +63,7 @@ create table public."order"(
 	userId int not null references public."user"(id)
 );
 	
-create table order_products(
+create table order_product(
 	orderId int not null references public."order"(id),
 	productId int not null references product(id),
 	primary key(orderId, productId)

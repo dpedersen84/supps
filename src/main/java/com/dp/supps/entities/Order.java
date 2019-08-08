@@ -7,31 +7,45 @@ package com.dp.supps.entities;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author dpede
  */
-@Entity
+//@Entity
+//@Table(name = "\"order\"")
 public class Order {
-    
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
     private int id;
-    
-    @Column(nullable = false)
+
+//    @Column(nullable = false)
     private BigDecimal totalPrice;
-    
-    @Column(nullable = false)
-    private  LocalDate orderDate;
-    
-    @Column(nullable = false)
+
+//    @Column(nullable = false)
+    private LocalDate orderDate;
+
+//    @Column(nullable = false)
     private int userId;
+
+//    @ManyToMany
+//    @JoinTable(
+//            name = "orderproduct",
+//            joinColumns = {@JoinColumn(name = "orderid")},
+//            inverseJoinColumns = {@JoinColumn(name = "productid")})
+    
+    private List<Product> products;
 
     public int getId() {
         return id;
@@ -64,4 +78,13 @@ public class Order {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+    
 }

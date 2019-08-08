@@ -1,6 +1,6 @@
 drop table if exists review;
-drop table if exists product_ingredient;
-drop table if exists order_products;
+drop table if exists productingredient;
+drop table if exists orderproduct;
 drop table if exists public."order";
 drop table if exists product;
 drop table if exists ingredient;
@@ -70,15 +70,16 @@ create table product(
 
 insert into product(name, price, inventory, goalId, categoryId) values
 	('Buzz', 35.00, 10, 3, 2),
-	('Pro', 55.00, 10, 1, 1);
+	('Pro', 55.00, 10, 1, 1),
+	('Yo!', 25.00, 10, 3, 5);
 
-create table product_ingredient(
+create table productingredient(
 	productId int not null references product(id),
 	ingredientId int not null references ingredient(id),
 	primary key(productId, ingredientId)
 );
 
-insert into product_ingredient(productId, ingredientId) values
+insert into productingredient(productId, ingredientId) values
 	(1, 2),
 	(1, 3),
 	(1, 4),
@@ -88,12 +89,13 @@ insert into product_ingredient(productId, ingredientId) values
 
 create table review(
 	id serial primary key not null,
+	productId int not null references product(id),
 	rating int not null,
 	description varchar(300)
 );
 
-insert into review(rating, description)
-	values(5, 'Best ever!');
+insert into review(productid, rating, description)
+	values(1, 5, 'Best ever!'), (2, 5, 'Awesome!');
 
 create table public."user"(
 	id serial primary key not null,
@@ -115,12 +117,12 @@ create table public."order"(
 insert into public."order"(totalPrice, orderDate, userId)
 	values(90.00, '2019-01-01', 1);
 	
-create table order_products(
+create table orderproduct(
 	orderId int not null references public."order"(id),
 	productId int not null references product(id),
 	primary key(orderId, productId)
 );
 
-insert into order_products(orderId, productId) values
+insert into orderproduct(orderId, productId) values
 	(1, 1),
 	(1, 2);

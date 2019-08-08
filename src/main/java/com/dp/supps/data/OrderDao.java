@@ -5,15 +5,20 @@
  */
 package com.dp.supps.data;
 
-import com.dp.supps.entities.Ingredient;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import com.dp.supps.entities.Order;
+import java.util.List;
 
 /**
  *
  * @author dpede
  */
-@Repository
-public interface IngredientRepository extends JpaRepository<Ingredient, Integer> {
+public interface OrderDao {
     
+    List<Order> getAllOrders();
+    
+    Order getOrderById(int id);
+    
+    Order addOrder(Order order);
+    
+    boolean deleteOrderById(int id);
 }

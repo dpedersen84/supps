@@ -4,9 +4,13 @@ C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\entities\Ingredient.jav
 C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\data\ReviewRepository.java
 C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\entities\Review.java
 C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\controllers\ProductController.java
+C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\service\OrderService.java
 C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\data\GoalRepository.java
 C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\entities\Goal.java
+C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\controllers\OrderController.java
 C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\entities\Category.java
+C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\entities\ProductDetail.java
+C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\data\CategoryDao.java
 C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\service\ProductService.java
 C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\data\ProductRepository.java
 C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\data\UserRepository.java
@@ -14,4 +18,7 @@ C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\entities\Order.java
 C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\data\OrderRepository.java
 C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\entities\Product.java
 C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\data\IngredientRepository.java
+C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\controllers\GoalController.java
+C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\service\GoalService.java
 C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\data\CategoryRepository.java
+C:\Users\dpede\Projects\supps\src\main\java\com\dp\supps\data\CategoryDaoDB.java

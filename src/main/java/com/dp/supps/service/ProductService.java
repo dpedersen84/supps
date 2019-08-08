@@ -8,7 +8,6 @@ package com.dp.supps.service;
 import com.dp.supps.data.ProductRepository;
 import com.dp.supps.entities.Product;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,11 +36,6 @@ public class ProductService {
     public Product addProduct(Product p) {
         return productRepo.save(p);
     }
-    
-//    public boolean updateProduct(Product p) {
-//        productRepo.save(p);
-//        return true;
-//    }
     
     public void deleteById(int id) {
         productRepo.deleteById(id);

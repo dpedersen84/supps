@@ -6,47 +6,52 @@
 package com.dp.supps.entities;
 
 import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 /**
  *
  * @author dpede
  */
-@Entity
+//@Entity
 public class Product {
     
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
     private int id;
     
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String name;
     
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private BigDecimal price;
     
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private int inventory;
     
-    @ManyToOne
-    @JoinColumn(name = "goalId")
+//    @ManyToOne
+//    @JoinColumn(name = "goalId")
     private Goal goal;
     
-    @ManyToOne
-    @JoinColumn(name = "categoryId")
+//    @ManyToOne
+//    @JoinColumn(name = "categoryId")
     private Category category;
     
-    @Column
+//    @Column
     private String description;
     
-    @Column
+//    @Column
     private String image;
+    
+//    @ManyToMany(mappedBy = "products")
+    private List<Order> orders;
 
     public int getId() {
         return id;
@@ -111,4 +116,5 @@ public class Product {
     public void setImage(String image) {
         this.image = image;
     }
+    
 }
