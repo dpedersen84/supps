@@ -20,5 +20,5 @@ public interface OrderDao {
     
     Order addOrder(Order order);
     
-    boolean deleteOrderById(int orderId);
+    void deleteOrderById(int orderId);
 }

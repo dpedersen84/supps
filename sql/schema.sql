@@ -46,7 +46,9 @@ create table product(
 insert into product(name, price, inventory, goalId, categoryId) values
 	('Buzz', 35.00, 10, 3, 2),
 	('Pro', 55.00, 10, 1, 1),
-	('Yo!', 25.00, 10, 3, 5);
+	('Yo!', 25.00, 10, 3, 2),
+	('Veg Pro', 65.00, 10, 1, 1),
+	('Starve Me', 22.00, 10, 2, 3);
 
 create table review(
 	id serial primary key not null,
@@ -79,8 +81,9 @@ create table orders(
 	userId int not null references public."user"(id)
 );
 
-insert into orders(totalPrice, orderDate, userId)
-	values(90.00, '2019-01-01', 1);
+insert into orders(totalPrice, orderDate, userId) values
+	(90.00, '2019-01-01', 1),
+	(25.00, '2019-02-01', 1);
 	
 create table orderproduct(
 	orderId int not null references orders(orderId),
@@ -90,4 +93,6 @@ create table orderproduct(
 
 insert into orderproduct(orderId, productId) values
 	(1, 1),
-	(1, 2);
+	(1, 2),
+	(2, 3);
+	
