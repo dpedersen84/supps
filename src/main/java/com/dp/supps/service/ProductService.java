@@ -32,4 +32,16 @@ public class ProductService {
     public Product findProductById(int productId) {
         return productDao.findByProductId(productId);
     }
+    
+    public Product addProduct(Product product) {
+        return productDao.addProduct(product);
+    }
+    
+    public void updateProduct(Product product) {
+        productDao.updateProduct(product);
+    }
+    
+    public void deleteProductById(int productId) {
+        productDao.deleteProductById(productId);
+    }
 }

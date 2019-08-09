@@ -8,6 +8,7 @@ import com.dp.supps.entities.Product;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -45,18 +46,44 @@ public class ProductDaoDB implements ProductDao {
     }
 
     @Override
+    @Transactional
     public Product addProduct(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String sql = "INSERT INTO product (name, price, inventory, goalId, categoryId) VALUES (?, ?, ?, ?, ?)";
+        
+        jdbc.update(sql, product.getName(), product.getPrice(),
+                product.getInventory(), product.getGoal().getId(),
+                product.getCategory().getId());
+        
+//        int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+//        
+//        product.setProductId(newId);
+
+        return product;
     }
 
     @Override
+    @Transactional
     public void updateProduct(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        final String sql = "UPDATE product SET name = ?, inventory = ?, goalId = ?, categoryId = ? WHERE productId = ?";
+        
+        jdbc.update(sql, product.getName(), product.getInventory(),
+                product.getGoal().getId(), product.getCategory().getId(),
+                product.getProductId());
     }
 
     @Override
+    @Transactional
     public void deleteProductById(int productId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // delete from orderproduct table 
+        final String deleteFromOrderProduct = "DELETE FROM orderproduct WHERE productId = ?";
+        jdbc.update(deleteFromOrderProduct, productId);
+        
+        // delete from review table
+        final String deleteReview = "DELETE FROM review WHERE productId = ?";
+        jdbc.update(deleteReview, productId);
+        
+        final String sql = "DELETE FROM product WHERE productId = ?"; 
+        jdbc.update(sql, productId);
     }
 
     private void addGoalAndCategoryToProducts(List<Product> products) {
