@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dp.supps.controllers;
 
 import com.dp.supps.entities.Goal;
@@ -19,10 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @author dpede
- */
 @RestController
 public class GoalController {
     private final GoalService goalServ;
@@ -34,12 +25,12 @@ public class GoalController {
 
     @GetMapping("/api/goals")
     public List<Goal> getProducts() {
-        return goalServ.findAll();
+        return goalServ.allGoals();
     }
 
     @GetMapping("/api/goals/{id}")
     public ResponseEntity<Goal> findProductById(@PathVariable int id) {
-        Goal result = goalServ.findById(id);
+        Goal result = goalServ.getGoalById(id);
 
         if (result == null) {
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
@@ -55,6 +46,6 @@ public class GoalController {
 
     @DeleteMapping("/api/goals/{id}")
     public void delete(@PathVariable int id) {
-        goalServ.deleteById(id);
+        goalServ.deleteGoalById(id);
     }
 }

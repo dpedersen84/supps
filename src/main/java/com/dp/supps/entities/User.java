@@ -1,37 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dp.supps.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
-/**
- *
- * @author dpede
- */
-@Entity
 public class User {
-    
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+
     private int id;
-    
-    @Column(nullable = false)
+
+    @NotBlank(message = "Name field cannot be blank!")
+    @Size(max = 100, message = "User name cannot be more than 100 characters!")
     private String name;
-    
-    @Column(nullable = false)
+
+    @NotBlank(message = "Email field cannot be blank!")
+    @Size(max = 50, message = "Email cannot be more than 50 characters!")
     private String email;
-    
-    @Column(nullable = false)
+
     private boolean isAdmin;
-    
-    @Column(nullable = false)
+
+    @NotBlank(message = "Password field cannot be blank!")
+    @Size(max = 100, message = "Password cannot be more than 100 characters!")
     private String password;
 
     public int getId() {

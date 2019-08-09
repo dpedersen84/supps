@@ -28,7 +28,7 @@ public class OrderDaoDB implements OrderDao {
     
     @Override
     public List<Order> getAllOrders() {
-        final String sql = "SELECT * FROM order";
+        final String sql = "SELECT * FROM orders";
         
         List<Order> orders = jdbc.query(sql, new OrderMapper());
         
@@ -38,7 +38,7 @@ public class OrderDaoDB implements OrderDao {
     }
 
     @Override
-    public Order getOrderById(int id) {
+    public Order getOrderById(int orderId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -48,19 +48,19 @@ public class OrderDaoDB implements OrderDao {
     }
 
     @Override
-    public boolean deleteOrderById(int id) {
+    public boolean deleteOrderById(int orderId) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     private void addProductsToOrders(List<Order> orders) {
         for (Order order : orders) {
-            order.setProducts(getProductsForOrder(order.getId()));
+            order.setProducts(getProductsForOrder(order.getOrderId()));
         }
     }
     
-    private List<Product> getProductsForOrder(int id) {
-        final String sql = "SELECT p.name, p.price FROM product p JOIN orderproduct op ON op.productid = p.id WHERE op.orderid = ?";
-        return jdbc.query(sql, new ProductMapper(), id);
+    private List<Product> getProductsForOrder(int orderId) {
+        final String sql = "SELECT p.name, p.price FROM product p JOIN orderproduct op ON op.productid = p.productid WHERE op.orderid = ?";
+        return jdbc.query(sql, new ProductMapper(), orderId);
     }
     
     public static final class OrderMapper implements RowMapper<Order> {
@@ -68,7 +68,7 @@ public class OrderDaoDB implements OrderDao {
         @Override
         public Order mapRow(ResultSet rs, int index) throws SQLException {
             Order order = new Order();
-            order.setId(rs.getInt("id"));
+            order.setOrderId(rs.getInt("orderId"));
             order.setOrderDate(rs.getDate("orderDate").toLocalDate());
             order.setUserId(rs.getInt("userId"));
             order.setTotalPrice(rs.getBigDecimal("totalPrice"));

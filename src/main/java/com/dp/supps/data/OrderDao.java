@@ -16,9 +16,9 @@ public interface OrderDao {
     
     List<Order> getAllOrders();
     
-    Order getOrderById(int id);
+    Order getOrderById(int orderId);
     
     Order addOrder(Order order);
     
-    boolean deleteOrderById(int id);
+    boolean deleteOrderById(int orderId);
 }

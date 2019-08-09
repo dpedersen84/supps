@@ -1,31 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dp.supps.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
-/**
- *
- * @author dpede
- */
-@Entity
 public class Review {
-    
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+
     private int id;
-    
-    @Column(nullable = false)
+
+    @Min(1)
+    @Max(5)
     private int rating;
-    
-    @Column
+
+    private int productId;
+
+    @Size(max = 300, message = "No more than 300 characters!")
     private String description;
 
     public int getId() {
@@ -42,6 +31,14 @@ public class Review {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public String getDescription() {

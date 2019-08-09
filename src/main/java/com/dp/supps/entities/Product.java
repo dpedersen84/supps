@@ -1,64 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dp.supps.entities;
 
 import java.math.BigDecimal;
-import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
-/**
- *
- * @author dpede
- */
-//@Entity
 public class Product {
-    
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Id
-    private int id;
-    
-//    @Column(nullable = false)
-    private String name;
-    
-//    @Column(nullable = false)
-    private BigDecimal price;
-    
-//    @Column(nullable = false)
-    private int inventory;
-    
-//    @ManyToOne
-//    @JoinColumn(name = "goalId")
-    private Goal goal;
-    
-//    @ManyToOne
-//    @JoinColumn(name = "categoryId")
-    private Category category;
-    
-//    @Column
-    private String description;
-    
-//    @Column
-    private String image;
-    
-//    @ManyToMany(mappedBy = "products")
-    private List<Order> orders;
 
-    public int getId() {
-        return id;
+    private int productId;
+
+    @NotBlank(message = "Product name cannot be blank!")
+    @Size(max = 100, message = "Name cannot be more than 100 characters!")
+    private String name;
+
+    @NotBlank(message = "You must enter a price!")
+    @Digits(integer = 5, fraction = 2)
+    private BigDecimal price;
+
+    @NotBlank(message = "You must enter some inventory!")
+    private int inventory;
+
+    private Goal goal;
+
+    private Category category;
+
+    private String description;
+
+    private String image;
+
+    public int getProductId() {
+        return productId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public String getName() {
@@ -116,5 +91,5 @@ public class Product {
     public void setImage(String image) {
         this.image = image;
     }
-    
+
 }

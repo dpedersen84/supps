@@ -1,14 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dp.supps.data;
 
-/**
- *
- * @author dpede
- */
+import com.dp.supps.entities.Product;
+import java.util.List;
+
 public interface ProductDao {
     
+    List<Product> getAllProducts();
+    
+    Product findByProductId(int productId);
+    
+    Product addProduct(Product product);
+    
+    void updateProduct(Product product);
+    
+    void deleteProductById(int productId);
 }

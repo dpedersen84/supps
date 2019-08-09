@@ -1,28 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dp.supps.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
-/**
- *
- * @author dpede
- */
-@Entity
 public class Category {
-    
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+
     private int id;
-    
-    @Column(nullable = false)
+
+    @NotBlank(message = "Category name cannot be blank!")
+    @Size(max = 25, message = "Category name cannot be more than 25 characters!")
     private String name;
 
     public int getId() {
@@ -40,4 +26,5 @@ public class Category {
     public void setName(String name) {
         this.name = name;
     }
+
 }

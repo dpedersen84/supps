@@ -6,14 +6,19 @@
 package com.dp.supps.data;
 
 import com.dp.supps.entities.Goal;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
 /**
  *
- * @author dpede
+ * @author Dan
  */
-@Repository
-public interface GoalRepository extends JpaRepository<Goal, Integer> {
-    
+public interface GoalDao {
+
+    Goal getGoalById(int id);
+
+    List<Goal> getAllGoals();
+
+    Goal addGoal(Goal goal);
+
+    void deleteGoalById(int id);
 }

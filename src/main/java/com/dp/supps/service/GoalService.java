@@ -1,43 +1,35 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dp.supps.service;
 
-import com.dp.supps.data.GoalRepository;
+import com.dp.supps.data.GoalDaoDB;
 import com.dp.supps.entities.Goal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- *
- * @author dpede
- */
 @Service
 public class GoalService {
     
-    private final GoalRepository goalRepo;
+    private final GoalDaoDB goalDao;
     
     @Autowired
-    public GoalService(GoalRepository goalRepo) {
-        this.goalRepo = goalRepo;
+    public GoalService(GoalDaoDB goalDao) {
+        this.goalDao = goalDao;
     }
     
-    public List<Goal> findAll() {
-        return goalRepo.findAll();
+    public List<Goal> allGoals() {
+        return goalDao.getAllGoals();
     }
     
-    public Goal findById(int id) {
-        return goalRepo.findById(id).orElse(null);
+    public Goal getGoalById(int id) {
+        return goalDao.getGoalById(id);
     }
     
-    public Goal addGoal(Goal g) {
-        return goalRepo.save(g);
+    public Goal addGoal(Goal goal) {
+        return goalDao.addGoal(goal);
     }
     
-    public void deleteById(int id) {
-        goalRepo.deleteById(id);
+    public void deleteGoalById(int id) {
+        goalDao.deleteGoalById(id);
     }
+    
 }
