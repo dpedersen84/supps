@@ -35,31 +35,26 @@ public class OrderController {
         return orders;
     }
     
-//    @GetMapping("/api/orders/{id}")
-//    public ResponseEntity<Order> findOrderById(@PathVariable int id) {
-//        Order result = orderServ.findById(id);
-//
-//        if (result == null) {
-//            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
-//        }
-//        return ResponseEntity.ok(result);
-//    }
-//    
-//    @PostMapping("/api/orders")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Order addOrder(@RequestBody Order order) {
-//        List<Product> orderProducts = order.getProducts();
-//        
-//        for (Product p : orderProducts) {
-//            productServ.findById(p.getId());
-//        }
-//        
-//        
-//        return orderServ.addOrder(order);
-//    }
-//    
-//    @DeleteMapping("/api/orders/{id}")
-//    public void delete(@PathVariable int id) {
-//        orderServ.deleteById(id);
-//    }
+    @GetMapping("/api/orders/{id}")
+    public ResponseEntity<Order> findOrderById(@PathVariable int id) {
+        Order result = orderServ.findOrderByOrderId(id);
+
+        if (result == null) {
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/api/orders")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Order addOrder(@RequestBody Order order) {
+        List<Product> orderProducts = order.getProducts();
+      
+        return orderServ.addOrder(order);
+    }
+    
+    @DeleteMapping("/api/orders/{id}")
+    public void delete(@PathVariable int id) {
+        orderServ.deleteOrderById(id);
+    }
 }
