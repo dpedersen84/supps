@@ -55,8 +55,11 @@ create table review(
 	description varchar(300)
 );
 
-insert into review(productid, rating, description)
-	values(1, 5, 'Best ever!'), (2, 5, 'Awesome!');
+insert into review(productid, rating, description) values
+	(1, 5, 'Best ever!'), 
+	(2, 5, 'Awesome!'),
+	(2, 2, 'Tasted like crap!'),
+	(2, 5, 'Greate product!');
 
 create table public."user"(
 	id serial primary key not null,

@@ -37,8 +37,12 @@ public class ProductDaoDB implements ProductDao {
         try {
             final String sql = "SELECT * FROM product WHERE productId = ?";
             Product product = jdbc.queryForObject(sql, new ProductMapper(), productId);
-            product.setCategory(getCategoryForProduct(product.getProductId()));
-            product.setGoal(getGoalForProduct(product.getProductId()));
+            
+            if (product != null) {
+                product.setCategory(getCategoryForProduct(product.getProductId()));
+                product.setGoal(getGoalForProduct(product.getProductId()));
+            }
+            
             return product;
         } catch (DataAccessException ex) {
             return null;
@@ -49,15 +53,14 @@ public class ProductDaoDB implements ProductDao {
     @Transactional
     public Product addProduct(Product product) {
         final String sql = "INSERT INTO product (name, price, inventory, goalId, categoryId) VALUES (?, ?, ?, ?, ?)";
-        
+
         jdbc.update(sql, product.getName(), product.getPrice(),
                 product.getInventory(), product.getGoal().getId(),
                 product.getCategory().getId());
-        
+
 //        int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
 //        
 //        product.setProductId(newId);
-
         return product;
     }
 
@@ -65,7 +68,7 @@ public class ProductDaoDB implements ProductDao {
     @Transactional
     public void updateProduct(Product product) {
         final String sql = "UPDATE product SET name = ?, inventory = ?, goalId = ?, categoryId = ? WHERE productId = ?";
-        
+
         jdbc.update(sql, product.getName(), product.getInventory(),
                 product.getGoal().getId(), product.getCategory().getId(),
                 product.getProductId());
@@ -77,12 +80,12 @@ public class ProductDaoDB implements ProductDao {
         // delete from orderproduct table 
         final String deleteFromOrderProduct = "DELETE FROM orderproduct WHERE productId = ?";
         jdbc.update(deleteFromOrderProduct, productId);
-        
+
         // delete from review table
         final String deleteReview = "DELETE FROM review WHERE productId = ?";
         jdbc.update(deleteReview, productId);
-        
-        final String sql = "DELETE FROM product WHERE productId = ?"; 
+
+        final String sql = "DELETE FROM product WHERE productId = ?";
         jdbc.update(sql, productId);
     }
 
