@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import AppNavbar from "./components/layout/Navbar";
 
 class App extends Component {
   state = {
@@ -22,6 +23,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <AppNavbar />
         <div className="products">
           <h1>Products</h1>
           {products.map(p => (
