@@ -24,7 +24,7 @@ public class Product {
 
     private Category category;
 
-    private String description;
+    private String headline;
 
     private String image;
 
@@ -76,12 +76,12 @@ public class Product {
         this.category = category;
     }
 
-    public String getDescription() {
-        return description;
+    public String getHeadline() {
+        return headline;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setHeadline(String headline) {
+        this.headline = headline;
     }
 
     public String getImage() {
