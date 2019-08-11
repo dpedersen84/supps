@@ -7,6 +7,10 @@ public interface ProductDao {
     
     List<Product> getAllProducts();
     
+    List<Product> getProductsByGoalId(int goalId);
+    
+    List<Product> getProductsByCategoryId(int categoryId);
+    
     Product findByProductId(int productId);
     
     Product addProduct(Product product);

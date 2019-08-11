@@ -40,6 +40,16 @@ public class ProductController {
         return ResponseEntity.ok(result);
     }
     
+    @GetMapping("/api/products/goal/{goalId}")
+    public List<Product> findProductsByGoalId(@PathVariable int goalId) {
+        return productServ.allProductsByGoalId(goalId);
+    }
+    
+    @GetMapping("/api/products/category/{categoryId}")
+    public List<Product> findProductsByCategoryId(@PathVariable int categoryId) {
+        return productServ.allProductsByCategoryId(categoryId);
+    }
+    
     @PostMapping("/api/products")
     @ResponseStatus(HttpStatus.CREATED)
     public Product addProduct(@RequestBody Product product) {

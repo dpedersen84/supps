@@ -31,6 +31,28 @@ public class ProductDaoDB implements ProductDao {
 
         return products;
     }
+    
+    @Override
+    public List<Product> getProductsByGoalId(int goalId) {
+        final String sql = "SELECT * FROM product WHERE goalId = ?";
+        
+        List<Product> products = jdbc.query(sql, new ProductMapper(), goalId);
+        
+        addGoalAndCategoryToProducts(products);
+        
+        return products;
+    }
+    
+    @Override
+    public List<Product> getProductsByCategoryId(int categoryId) {
+        final String sql = "SELECT * FROM product WHERE categoryId = ?";
+        
+        List<Product> products = jdbc.query(sql, new ProductMapper(), categoryId);
+        
+        addGoalAndCategoryToProducts(products);
+        
+        return products;
+    }
 
     @Override
     public Product findByProductId(int productId) {
@@ -118,8 +140,9 @@ public class ProductDaoDB implements ProductDao {
             prod.setProductId(rs.getInt("productId"));
             prod.setName(rs.getString("name"));
             prod.setInventory(rs.getInt("inventory"));
-            prod.setDescription(rs.getString("description"));
+            prod.setHeadline(rs.getString("headline"));
             prod.setPrice(rs.getBigDecimal("price"));
+            prod.setImage(rs.getString("image"));
 
             return prod;
         }
