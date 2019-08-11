@@ -11,6 +11,15 @@ public class Category {
     @Size(max = 25, message = "Category name cannot be more than 25 characters!")
     private String name;
 
+    public Category(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    
+    public Category() {
+        
+    }
+    
     public int getId() {
         return id;
     }
