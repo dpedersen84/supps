@@ -28,6 +28,14 @@ public class ProductService {
     public List<Product> allProducts() {
         return productDao.getAllProducts();
     }
+    
+    public List<Product> allProductsByGoalId(int goalId) {
+        return productDao.getProductsByGoalId(goalId);
+    }
+    
+    public List<Product> allProductsByCategoryId(int categoryId) {
+        return productDao.getProductsByCategoryId(categoryId);
+    }
  
     public Product findProductById(int productId) {
         return productDao.findByProductId(productId);
