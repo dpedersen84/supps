@@ -1,0 +1,23 @@
+img {
+  width: 100%;
+}
+
+.landing {
+  /* position: relative; */
+  font-family: "Raleway", sans-serif;
+  background: url("https://images.pexels.com/photos/1552252/pexels-photo-1552252.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")
+    no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  margin-top: -24px;
+  margin-bottom: -50px;
+}
+
+.landing-inner {
+  padding-top: 80px;
+}
+
+.supps {
+  font-family: "Russo One", sans-serif;
+}

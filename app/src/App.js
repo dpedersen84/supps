@@ -1,38 +1,31 @@
-import React, { Component } from "react";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AppNavbar from "./components/layout/Navbar";
+import Landing from "./components/layout/Landing";
+import Login from "./components/login/Login";
+import Register from "./components/register/Register";
+import Products from "./components/products/Products";
+import Detail from "./components/detail/Detail";
+import Category from "./components/category/Category";
+import Goal from "./components/goal/Goal";
+import Order from "./components/order/Order";
 
-class App extends Component {
-  state = {
-    isLoading: true,
-    products: []
-  };
-
-  async componentDidMount() {
-    const response = await fetch("/api/products");
-    const body = await response.json();
-    this.setState({ products: body, isLoading: false });
-    console.log(this.state.products);
-  }
-
-  render() {
-    const { products, isLoading } = this.state;
-
-    if (isLoading) {
-      return <p>Loading...</p>;
-    }
-
-    return (
-      <div className="App">
-        <AppNavbar />
-        <div className="products">
-          <h1>Products</h1>
-          {products.map(p => (
-            <div key={p.id}>{p.name}</div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-}
+const App = () => (
+  <Router>
+    <div>
+      <AppNavbar />
+      <Switch>
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/products" component={Products} />
+        <Route exact path="/products/:id" component={Detail} />
+        <Route exact path="/goals" component={Goal} />
+        <Route exact path="/categories" component={Category} />
+        <Route exact path="/order" component={Order} />
+      </Switch>
+    </div>
+  </Router>
+);
 
 export default App;

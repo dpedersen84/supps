@@ -17,7 +17,8 @@ insert into goal(name)
 	('Burn Fat'),
 	('Increase Energy'),
 	('Increase Health'),
-	('Increase Strength');
+	('Increase Strength'),
+	('Mental Clarity');
 
 create table category(
 	id serial primary key,
@@ -39,16 +40,19 @@ create table product(
 	inventory int not null,
 	goalId int not null references goal(id),
 	categoryId int not null references category(id),
-	description varchar(200),
+	headline varchar(200),
 	image varchar(300)
 );
 
-insert into product(name, price, inventory, goalId, categoryId) values
-	('Buzz', 35.00, 10, 3, 2),
-	('Pro', 55.00, 10, 1, 1),
-	('Yo!', 25.00, 10, 3, 2),
-	('Veg Pro', 65.00, 10, 1, 1),
-	('Starve Me', 22.00, 10, 2, 3);
+insert into product(name, price, inventory, goalId, categoryId, headline, image) values
+	('Buzz', 35.00, 10, 3, 2, 'The highest caffeinated pre-workout on the market!', 'https://i.imgur.com/9XFRtjA.png'),
+	('Pro', 55.00, 10, 1, 1, '30 grams of whey protein isolate in one serving of our Pro whey protein!', 'https://i.imgur.com/rUoVS2K.png'),
+	('Yo!', 25.00, 10, 3, 2, 'Lower dose caffeine in this super formulated pre-workout product.', 'https://i.imgur.com/5gNCSrG.jpg'),
+	('Veg Pro', 65.00, 10, 1, 1, '25 grams of veggie protein formulated for Vegetarians and Vegans looking to gain quality muscle!', 'https://i.imgur.com/aDvQDmF.png'),
+	('Starve Me', 22.00, 10, 2, 3, 'Kill your appetite with Starve Me!', 'https://i.imgur.com/ILzRkXU.png'),
+	('sPills', 30.00, 10, 4, 4, 'Increase overall health with our sPills multi-vitamins!', 'https://i.imgur.com/qCb1M6S.png'),
+	('Creature', 45.00, 10, 5, 5, 'Strength gains through the roof with Creature pure creatine powder!', 'https://i.imgur.com/gckBXHx.png'),
+	('Brain Food', 30.00, 10, 6, 4, 'Gain mental focus and clarity with our proprietary blend of vitamins and minerals', 'https://i.imgur.com/VlZvrpo.png');
 
 create table review(
 	id serial primary key not null,

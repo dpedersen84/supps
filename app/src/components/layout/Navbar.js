@@ -1,16 +1,12 @@
 import React, { Component } from "react";
 import {
   Collapse,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
   Nav,
   Navbar,
   NavbarBrand,
   NavbarToggler,
   NavItem,
-  NavLink,
-  UncontrolledDropdown
+  NavLink
 } from "reactstrap";
 import { Link } from "react-router-dom";
 
@@ -30,45 +26,32 @@ class AppNavbar extends Component {
   render() {
     return (
       <Navbar color="dark" dark expand="md">
-        {/* <NavbarBrand tag={Link} to="/"> */}
-        <NavbarBrand href="/">Supps</NavbarBrand>
+        <NavbarBrand tag={Link} to="/">
+          Supps
+        </NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink href="/products">Products</NavLink>
+              <NavLink tag={Link} to="/products">
+                Products
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/category">Categories</NavLink>
+              <NavLink tag={Link} to="/login">
+                Login
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/products">Products</NavLink>
+              <NavLink tag={Link} to="/register">
+                Register
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/orders">Orders</NavLink>
+              <NavLink tag={Link} to="/order">
+                Order
+              </NavLink>
             </NavItem>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Goals
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Categories
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
           </Nav>
         </Collapse>
       </Navbar>
