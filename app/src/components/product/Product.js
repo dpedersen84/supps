@@ -257,7 +257,21 @@ class Product extends Component {
                   />
                 </FormGroup>
                 <FormGroup>
-                  <Button outline color="primary" type="submit">
+                  <Button
+                    outline
+                    color="primary"
+                    type="submit"
+                    // need better validation
+                    disabled={
+                      !this.state.name ||
+                      !this.state.category ||
+                      !this.state.image ||
+                      !this.state.goal ||
+                      !this.state.inventory ||
+                      !this.state.headline ||
+                      !this.state.price
+                    }
+                  >
                     Save
                   </Button>
                   <Button tag={Link} to="/admin" className="ml-2">
