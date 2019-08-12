@@ -11,6 +11,7 @@ import Category from "./components/category/Category";
 import Goal from "./components/goal/Goal";
 import Order from "./components/order/Order";
 import Admin from "./components/admin/Admin";
+import Review from "./components/review/Review";
 
 const App = () => (
   <Router>
@@ -25,6 +26,7 @@ const App = () => (
         <Route exact path="/add/goal" component={Goal} />
         <Route exact path="/add/category" component={Category} />
         <Route exact path="/add/product" component={Product} />
+        <Route exact path="/add/review/:id" component={Review} />
         <Route exact path="/edit/product/:id" component={Product} />
         <Route exact path="/order" component={Order} />
         <Route exact path="/admin" component={Admin} />
