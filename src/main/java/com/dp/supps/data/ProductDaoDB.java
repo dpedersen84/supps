@@ -23,7 +23,7 @@ public class ProductDaoDB implements ProductDao {
 
     @Override
     public List<Product> getAllProducts() {
-        final String sql = "SELECT * FROM product";
+        final String sql = "SELECT * FROM product ORDER BY productid ASC";
 
         List<Product> products = jdbc.query(sql, new ProductMapper());
 
