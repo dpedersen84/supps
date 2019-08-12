@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import "./Landing.css";
 
@@ -16,15 +17,9 @@ class Landing extends Component {
                   Find the best supplements for your health and fitness!
                 </p>
                 <hr />
-                {/* <Link className="btn btn-lg btn-primary mr-2" to="/register">
-                  Register
-                </Link>
-                <Link className="btn btn-lg btn-primary" to="/login">
-                  Login
-                </Link> */}
-                <Link className="btn btn-lg btn-primary" to="/products">
+                <Button color="primary" tag={Link} to="/products">
                   Get Started
-                </Link>
+                </Button>
               </div>
             </div>
           </div>

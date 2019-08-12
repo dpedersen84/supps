@@ -149,7 +149,12 @@ class Detail extends Component {
               <h3>Reviews</h3>
             </div>
             <div className="col-right">
-              <Button outline color="warning">
+              <Button
+                outline
+                color="warning"
+                tag={Link}
+                to={`/add/review/${product.productId}`}
+              >
                 Add Review
               </Button>
             </div>
