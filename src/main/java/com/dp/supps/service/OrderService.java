@@ -24,8 +24,36 @@ public class OrderService {
         return orders;
     }
     
+    public List<Order> findSent() {
+        return orderDao.getSentOrders();
+    }
+    
+    public List<Order> findUnsent() {
+        return orderDao.getUnsentOrders();
+    }
+    
+    public Order findUnsentOrderByUserId(int userId) {
+        Order order =  orderDao.getUnsentOrderByUserId(userId);
+        
+        if (order != null) {
+            return order;
+        } else {
+            Order newOrder = new Order();
+            newOrder.setUserId(userId);
+            return createOrder(newOrder);
+        }
+    }
+    
     public Order findOrderByOrderId(int orderId) {
         return orderDao.getOrderById(orderId);
+    }
+    
+    public void addToOrderProduct(int orderId, int productId) {
+        orderDao.addToOrderProduct(orderId, productId);
+    }
+    
+    public void deleteFromOrderProduct(int orderId, int productId) {
+        orderDao.removeFromOrderProduct(orderId, productId);
     }
     
     public Order addOrder(Order order) {
@@ -55,5 +83,19 @@ public class OrderService {
     
     public void deleteOrderById(int orderId) {
         orderDao.deleteOrderById(orderId);
+    }
+    
+    public Order createOrder(Order order) {
+        // set order id
+        List<Order> orders = findAll();
+        
+        Order last = orders.get(orders.size() - 1);
+        
+        order.setOrderId(last.getOrderId() + 1);
+        
+        // set order date
+        order.setOrderDate(LocalDate.now());
+        
+        return orderDao.createOrder(order);
     }
 }

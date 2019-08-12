@@ -15,6 +15,8 @@ public class Order {
     private int userId;
 
     private List<Product> products;
+    
+    private boolean orderSent;
 
     public int getOrderId() {
         return orderId;
@@ -54,6 +56,14 @@ public class Order {
 
     public void setProducts(List<Product> products) {
         this.products = products;
+    }
+
+    public boolean isOrderSent() {
+        return orderSent;
+    }
+
+    public void setOrderSent(boolean orderSent) {
+        this.orderSent = orderSent;
     }
     
 }

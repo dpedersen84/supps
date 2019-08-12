@@ -18,23 +18,47 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class OrderController {
-    
+
     private final OrderService orderServ;
     private final ProductService productServ;
-    
+
     @Autowired
     public OrderController(OrderService orderServ, ProductService productServ) {
         this.orderServ = orderServ;
         this.productServ = productServ;
     }
-    
+
     @GetMapping("/api/orders")
     public List<Order> getOrders() {
         List<Order> orders = orderServ.findAll();
-        
+
         return orders;
     }
-    
+
+    @GetMapping("/api/orders/sent")
+    public List<Order> getSentOrders() {
+        List<Order> orders = orderServ.findSent();
+
+        return orders;
+    }
+
+    @GetMapping("/api/orders/unsent")
+    public List<Order> getUnsentOrders() {
+        List<Order> orders = orderServ.findUnsent();
+
+        return orders;
+    }
+
+    @GetMapping("/api/orders/unsent/{userId}")
+    public ResponseEntity<Order> findUnsentOrderByUserId(@PathVariable int userId) {
+        Order result = orderServ.findUnsentOrderByUserId(userId);
+
+        if (result == null) {
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(result);
+    }
+
     @GetMapping("/api/orders/{id}")
     public ResponseEntity<Order> findOrderById(@PathVariable int id) {
         Order result = orderServ.findOrderByOrderId(id);
@@ -48,13 +72,23 @@ public class OrderController {
     @PostMapping("/api/orders")
     @ResponseStatus(HttpStatus.CREATED)
     public Order addOrder(@RequestBody Order order) {
-        List<Product> orderProducts = order.getProducts();
-      
-        return orderServ.addOrder(order);
+        
+//        return orderServ.addOrder(order);
+        return orderServ.createOrder(order);
     }
-    
+
     @DeleteMapping("/api/orders/{id}")
     public void delete(@PathVariable int id) {
         orderServ.deleteOrderById(id);
+    }
+    
+    @PostMapping("/api/orders/{orderId}/{productId}")
+    public void addProductToOrder(@PathVariable int orderId, @PathVariable int productId) {
+        orderServ.addToOrderProduct(orderId, productId);
+    }
+
+    @DeleteMapping("/api/orders/{orderId}/{productId}")
+    public void deleteProductFromOrder(@PathVariable int orderId, @PathVariable int productId) {
+        orderServ.deleteFromOrderProduct(orderId, productId);
     }
 }

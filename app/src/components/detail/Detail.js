@@ -1,14 +1,19 @@
 import React, { Component } from "react";
 import { Button, Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "./Detail.css";
 
 class Detail extends Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
-      order: [],
+      userId: 1,
+      order: {},
       product: {},
+      products: [],
       goal: {},
       category: {},
       reviews: [],
@@ -17,6 +22,8 @@ class Detail extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
+
     this.setState({
       isLoading: true
     });
@@ -24,45 +31,74 @@ class Detail extends Component {
     fetch(`/api/products/${this.props.match.params.id}`)
       .then(res => res.json())
       .then(data => {
-        this.setState({
-          product: data,
-          goal: data.goal,
-          category: data.category
-        });
+        if (this._isMounted) {
+          this.setState({
+            product: data,
+            goal: data.goal,
+            category: data.category
+          });
+        }
       });
 
     fetch(`/api/reviews/product/${this.props.match.params.id}`)
       .then(res => res.json())
       .then(data => {
-        this.setState({
-          reviews: data,
-          isLoading: false
-        });
+        if (this._isMounted) {
+          this.setState({
+            reviews: data
+          });
+        }
+      });
+
+    axios
+      .get(`/api/orders/unsent/${this.state.userId}`)
+      .then(response => {
+        if (this._isMounted) {
+          console.log(response.data);
+
+          this.setState({
+            order: response.data,
+            isLoading: false
+          });
+
+          if (response.data.products != null) {
+            this.setState({
+              products: response.data.products
+            });
+          }
+        }
+      })
+      .catch(error => {
+        console.log(error);
       });
   }
 
-  addToOrder(product) {
-    localStorage.setItem(product.productId, JSON.stringify(product));
-    window.location.reload();
-    // this.setState((prevState, props) => {
-    //   return {
-    //     order: [...prevState.order, product]
-    //   };
-    // });
+  componentDidUpdate(prevProps) {}
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
-  deleteFromOrder(product) {
-    localStorage.removeItem(product.productId);
+  addToOrder(orderId, productId) {
+    axios.post(`/api/orders/${orderId}/${productId}`);
     window.location.reload();
-    // this.setState({
-    //   order: this.state.order.filter(prod => {
-    //     return prod !== product.target.value;
-    //   })
-    // });
+  }
+
+  deleteFromOrder(orderId, productId) {
+    axios.delete(`/api/orders/${orderId}/${productId}`);
+    window.location.reload();
   }
 
   render() {
-    const { product, reviews, goal, category, isLoading } = this.state;
+    const {
+      product,
+      reviews,
+      goal,
+      category,
+      isLoading,
+      order,
+      products
+    } = this.state;
 
     if (isLoading) {
       return (
@@ -73,6 +109,56 @@ class Detail extends Component {
         </div>
       );
     }
+
+    // This button will render if no products are in state
+    const buttonPrimary = (
+      <div className="col">
+        <Button
+          outline
+          color="primary"
+          onClick={this.addToOrder.bind(this, order.orderId, product.productId)}
+          size="lg"
+          block
+        >
+          Add To Order
+        </Button>
+      </div>
+    );
+
+    // If products are in state, this button will render, dynamically updating on add or remove
+    const buttonSecondary = (
+      <div className="col">
+        {products.some(prod => prod.productId === product.productId) ? (
+          <Button
+            outline
+            color="warning"
+            onClick={this.deleteFromOrder.bind(
+              this,
+              order.orderId,
+              product.productId
+            )}
+            size="lg"
+            block
+          >
+            Remove From Order
+          </Button>
+        ) : (
+          <Button
+            outline
+            color="primary"
+            onClick={this.addToOrder.bind(
+              this,
+              order.orderId,
+              product.productId
+            )}
+            size="lg"
+            block
+          >
+            Add To Order
+          </Button>
+        )}
+      </div>
+    );
 
     return (
       <div className="details mt-5">
@@ -117,29 +203,7 @@ class Detail extends Component {
                 </div>
               </div>
               <div className="row mt-5">
-                <div className="col">
-                  {localStorage.getItem(product.productId) ? (
-                    <Button
-                      outline
-                      color="warning"
-                      onClick={this.deleteFromOrder.bind(this, product)}
-                      size="lg"
-                      block
-                    >
-                      Remove From Order
-                    </Button>
-                  ) : (
-                    <Button
-                      outline
-                      color="primary"
-                      onClick={this.addToOrder.bind(this, product)}
-                      size="lg"
-                      block
-                    >
-                      Add To Order
-                    </Button>
-                  )}
-                </div>
+                {products != null ? buttonSecondary : buttonPrimary}
               </div>
             </div>
           </div>

@@ -77,19 +77,23 @@ create table public."user"(
 	password varchar(100) not null
 );
 
-insert into public."user"(name, email, isAdmin, password)
-	values('Dan P', 'email@email.com', true, 'password');
+insert into public."user"(name, email, isAdmin, password) values
+	('Dan P', 'email@email.com', true, 'password'),
+	('Jim J', 'email@email.com', false, 'password'),
+	('Sam A', 'email@email.com', false, 'password'),
+	('Mike B', 'email@email.com', false, 'password');
 
 create table orders(
 	orderId serial primary key not null,
-	totalPrice decimal(5,2) not null,
+	totalPrice decimal(5,2),
 	orderDate date not null,
-	userId int not null references public."user"(id)
+	userId int not null references public."user"(id),
+	orderSent bool not null
 );
 
-insert into orders(totalPrice, orderDate, userId) values
-	(90.00, '2019-01-01', 1),
-	(25.00, '2019-02-01', 1);
+insert into orders(totalPrice, orderDate, userId, orderSent) values
+	(90.00, '2019-01-01', 1, true),
+	(25.00, '2019-02-01', 1, false);
 	
 create table orderproduct(
 	orderId int not null references orders(orderId),
@@ -100,5 +104,6 @@ create table orderproduct(
 insert into orderproduct(orderId, productId) values
 	(1, 1),
 	(1, 2),
-	(2, 3);
+	(2, 3),
+	(2, 5);
 	
