@@ -53,8 +53,8 @@ class AppNavbar extends Component {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink tag={Link} to="/order">
-                Order
+              <NavLink tag={Link} to="/checkout">
+                Checkout
               </NavLink>
             </NavItem>
           </Nav>

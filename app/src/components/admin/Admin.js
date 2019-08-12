@@ -176,7 +176,6 @@ class Admin extends Component {
         <tr key={order.orderId}>
           <td>{order.orderId}</td>
           <td>{order.userId}</td>
-          <td>${order.totalPrice}.00</td>
           <td>
             {new Intl.DateTimeFormat("en-US", {
               year: "numeric",
@@ -184,13 +183,14 @@ class Admin extends Component {
               day: "2-digit"
             }).format(new Date(order.orderDate))}
           </td>
+          <td>{order.orderSent ? "True" : "False"}</td>
           <td>
             <Button
               size="sm"
               outline
               color="info"
               tag={Link}
-              to={`/orders/${order.orderId}`}
+              to={`/order/${order.orderId}`}
             >
               View
             </Button>
@@ -270,8 +270,8 @@ class Admin extends Component {
                 <tr>
                   <th width="10%">Id</th>
                   <th width="10%">UserId</th>
-                  <th width="10%">Total Price</th>
                   <th width="10%">Order Date</th>
+                  <th width="10%">Complete?</th>
                   <th width="20%">Actions</th>
                 </tr>
               </thead>
