@@ -80,14 +80,10 @@ public class OrderDaoDB implements OrderDao {
 
     @Override
     @Transactional
-    public Order addOrder(Order order) {
-        final String sql = "INSERT INTO orders (orderId, totalPrice, orderDate, userId, orderSent) VALUES (?, ?, ?, ?, ?)";
+    public Order completeOrder(Order order) {
+        final String update = "UPDATE orders SET totalPrice = ?, orderSent = ? WHERE orderId = ?";
 
-        jdbc.update(sql, order.getOrderId(), order.getTotalPrice(), order.getOrderDate(), order.getUserId(), order.isOrderSent());
-
-        List<Order> orders = getAllOrders();
-
-        insertIntoOrderProduct(order);
+        jdbc.update(update, order.getTotalPrice(), order.isOrderSent(), order.getOrderId());
 
         return order;
     }

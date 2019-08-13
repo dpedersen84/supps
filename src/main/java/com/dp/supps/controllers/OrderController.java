@@ -1,9 +1,7 @@
 package com.dp.supps.controllers;
 
 import com.dp.supps.entities.Order;
-import com.dp.supps.entities.Product;
 import com.dp.supps.service.OrderService;
-import com.dp.supps.service.ProductService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,12 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     private final OrderService orderServ;
-    private final ProductService productServ;
 
     @Autowired
-    public OrderController(OrderService orderServ, ProductService productServ) {
+    public OrderController(OrderService orderServ) {
         this.orderServ = orderServ;
-        this.productServ = productServ;
     }
 
     @GetMapping("/api/orders")
@@ -71,10 +67,14 @@ public class OrderController {
 
     @PostMapping("/api/orders")
     @ResponseStatus(HttpStatus.CREATED)
-    public Order addOrder(@RequestBody Order order) {
-        
-//        return orderServ.addOrder(order);
+    public Order createOrder(@RequestBody Order order) {
         return orderServ.createOrder(order);
+    }
+    
+    @PostMapping("/api/orders/sent")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Order sendOrder(@RequestBody Order order) {
+        return orderServ.completeOrder(order);
     }
 
     @DeleteMapping("/api/orders/{id}")

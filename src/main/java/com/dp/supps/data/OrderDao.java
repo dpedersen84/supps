@@ -15,7 +15,7 @@ public interface OrderDao {
     
     Order getOrderById(int orderId);
     
-    Order addOrder(Order order);
+    Order completeOrder(Order order);
     
     Order createOrder(Order order);
     

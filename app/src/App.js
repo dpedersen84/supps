@@ -13,6 +13,7 @@ import Order from "./components/order/Order";
 import Admin from "./components/admin/Admin";
 import Review from "./components/review/Review";
 import Checkout from "./components/checkout/Checkout";
+import OrderComplete from "./components/order-complete/OrderComplete";
 
 const App = () => (
   <Router>
@@ -32,6 +33,7 @@ const App = () => (
         <Route exact path="/order/:id" component={Order} />
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/checkout" component={Checkout} />
+        <Route exact path="/complete" component={OrderComplete} />
       </Switch>
     </div>
   </Router>

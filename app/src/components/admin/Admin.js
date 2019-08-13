@@ -71,35 +71,6 @@ class Admin extends Component {
       });
   }
 
-  componentDidUpdate(prevProps) {
-    this._isMounted = true;
-
-    if (this.state.products !== prevProps.products) {
-      fetch("/api/products")
-        .then(res => res.json())
-        .then(data => {
-          if (this._isMounted) {
-            this.setState({
-              products: data
-            });
-          }
-        });
-    }
-
-    if (this.state.orders !== prevProps.orders) {
-      axios
-        .get("/api/orders/sent")
-        .then(response => {
-          if (this._isMounted) {
-            this.setState({
-              orders: response.data
-            });
-          }
-        })
-        .catch(error => console.log(error));
-    }
-  }
-
   componentWillUnmount() {
     this._isMounted = false;
   }

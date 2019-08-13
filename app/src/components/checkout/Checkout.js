@@ -8,7 +8,7 @@ import {
   CardFooter,
   Table
 } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
 import "./Checkout.css";
 
@@ -21,6 +21,7 @@ class Checkout extends Component {
       userId: 4,
       products: [],
       order: {},
+      totalPrice: "",
       isLoading: true
     };
   }
@@ -36,9 +37,9 @@ class Checkout extends Component {
       .get(`/api/orders/unsent/${this.state.userId}`)
       .then(response => {
         if (this._isMounted) {
-          console.log(response.data);
           this.setState({
             order: response.data,
+            totalPice: response.data.totalPrice,
             isLoading: false
           });
 
@@ -54,18 +55,48 @@ class Checkout extends Component {
       });
   }
 
-  componentDidUpdate(prevProps) {}
-
   componentWillUnmount() {
     this._isMounted = false;
   }
 
   deleteFromOrder(orderId, productId) {
-    axios.delete(`/api/orders/${orderId}/${productId}`).then(() => {
-      let updatedProducts = [...this.state.products].filter(
-        p => p.productId !== productId
-      );
-      this.setState({ products: updatedProducts });
+    axios
+      .delete(`/api/orders/${orderId}/${productId}`)
+      .then(() => {
+        let updatedProducts = [...this.state.products].filter(
+          p => p.productId !== productId
+        );
+        this.setState({ products: updatedProducts });
+      })
+      .then(() => {
+        axios
+          .get(`/api/orders/unsent/${this.state.userId}`)
+          .then(response => {
+            if (this._isMounted) {
+              this.setState({
+                order: response.data,
+                totalPice: response.data.totalPrice,
+                isLoading: false
+              });
+
+              if (response.data.products != null) {
+                this.setState({
+                  products: response.data.products
+                });
+              }
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      });
+  }
+
+  async handleOrderSubmit() {
+    const { order } = this.state;
+
+    axios.post("/api/orders/sent", order).then(response => {
+      this.props.history.push("/complete");
     });
   }
 
@@ -148,10 +179,21 @@ class Checkout extends Component {
               </Table>
             </CardBody>
             <CardFooter className="text-right">
-              <Button tag={Link} to="/products" outline color="info">
+              <strong>Order Total: ${order.totalPrice}.00</strong>
+              <Button
+                tag={Link}
+                to="/products"
+                outline
+                color="info"
+                className="ml-2"
+              >
                 Keep Shopping
               </Button>
-              <Button color="success" className="ml-2">
+              <Button
+                color="success"
+                className="ml-2"
+                onClick={() => this.handleOrderSubmit()}
+              >
                 Submit
               </Button>
             </CardFooter>
@@ -162,4 +204,4 @@ class Checkout extends Component {
   }
 }
 
-export default Checkout;
+export default withRouter(Checkout);
