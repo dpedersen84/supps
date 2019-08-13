@@ -4,7 +4,7 @@ drop table if exists orders;
 drop table if exists product;
 drop table if exists goal;
 drop table if exists category;
-drop table if exists public."user";
+drop table if exists users;
 
 create table goal(
 	id serial primary key,
@@ -69,19 +69,19 @@ insert into review(productid, rating, description) values
 	(2, 2, 'Tasted like crap!'),
 	(2, 5, 'Greate product!');
 
-create table public."user"(
+create table users(
 	id serial primary key not null,
-	name varchar(100) not null,
-	email varchar(50) not null,
+	username varchar(100) not null,
 	isAdmin bool not null,
-	password varchar(100) not null
+	password varchar(100) not null,
+	role varchar(10)
 );
 
-insert into public."user"(name, email, isAdmin, password) values
-	('Dan P', 'email@email.com', true, 'password'),
-	('Jim J', 'email@email.com', false, 'password'),
-	('Sam A', 'email@email.com', false, 'password'),
-	('Mike B', 'email@email.com', false, 'password');
+insert into users(username, isAdmin, password, role) values
+	('dan', true, 'password', 'ADMIN'),
+	('jim', false, 'password', 'USER'),
+	('sam', false, 'password', 'USER'),
+	('mike', false, 'password', 'USER');
 
 create table orders(
 	orderId serial primary key not null,
