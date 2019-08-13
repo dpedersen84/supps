@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Button, Table, Spinner } from "reactstrap";
+import { Alert, Button, Table, Spinner } from "reactstrap";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "./Admin.css";
 
 class Admin extends Component {
@@ -13,8 +14,12 @@ class Admin extends Component {
       orders: [],
       goals: [],
       categories: [],
-      users: []
+      users: [],
+      isLoading: true,
+      visible: false,
+      errorMsg: ""
     };
+    this.onDismiss = this.onDismiss.bind(this);
   }
 
   componentDidMount() {
@@ -54,7 +59,7 @@ class Admin extends Component {
         }
       });
 
-    fetch("/api/orders")
+    fetch("/api/orders/sent")
       .then(res => res.json())
       .then(data => {
         if (this._isMounted) {
@@ -80,51 +85,77 @@ class Admin extends Component {
           }
         });
     }
+
+    if (this.state.orders !== prevProps.orders) {
+      axios
+        .get("/api/orders/sent")
+        .then(response => {
+          if (this._isMounted) {
+            this.setState({
+              orders: response.data
+            });
+          }
+        })
+        .catch(error => console.log(error));
+    }
   }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
 
-  async removeProduct(productId) {
-    await fetch(`/api/products/${productId}`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    }).then(() => {
-      let updatedProducts = [...this.state.products].filter(
-        p => p.productId !== productId
-      );
-      this.setState({ products: updatedProducts });
-    });
+  removeProduct(productId) {
+    axios
+      .delete(`/api/products/${productId}`)
+      .then(() => {
+        let updatedProducts = [...this.state.products].filter(
+          p => p.productId !== productId
+        );
+        this.setState({ products: updatedProducts });
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({
+          errorMsg: "Delete failed!",
+          visible: true
+        });
+      });
   }
 
-  async removeGoal(id) {
-    await fetch(`/api/goals/${id}`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    }).then(() => {
-      let updatedGoals = [...this.state.goals].filter(g => g.id !== id);
-      this.setState({ goals: updatedGoals });
-    });
+  removeGoal(id) {
+    axios
+      .delete(`/api/goals/${id}`)
+      .then(() => {
+        let updatedGoals = [...this.state.goals].filter(g => g.id !== id);
+        this.setState({ goals: updatedGoals });
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({
+          errorMsg: "Delete failed! A product is still using that goal!",
+          visible: true
+        });
+      });
   }
 
-  async removeCategory(id) {
-    await fetch(`/api/category/${id}`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      }
-    }).then(() => {
-      let updatedCats = [...this.state.categories].filter(c => c.id !== id);
-      this.setState({ categories: updatedCats });
-    });
+  removeCategory(id) {
+    axios
+      .delete(`/api/category/${id}`)
+      .then(() => {
+        let updatedCats = [...this.state.categories].filter(c => c.id !== id);
+        this.setState({ categories: updatedCats });
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({
+          errorMsg: "Delete failed! A product is still using that category!",
+          visible: true
+        });
+      });
+  }
+
+  onDismiss() {
+    this.setState({ visible: false });
   }
 
   render() {
@@ -183,7 +214,6 @@ class Admin extends Component {
               day: "2-digit"
             }).format(new Date(order.orderDate))}
           </td>
-          <td>{order.orderSent ? "True" : "False"}</td>
           <td>
             <Button
               size="sm"
@@ -241,6 +271,14 @@ class Admin extends Component {
       <div className="admin mt-5">
         <div className="container">
           <h1>Admin Tools</h1>
+          <Alert
+            color="danger"
+            isOpen={this.state.visible}
+            toggle={this.onDismiss}
+            className="mt-3"
+          >
+            {this.state.errorMsg}
+          </Alert>
           <hr />
           <div className="productTable">
             <div className="float-right">
@@ -268,11 +306,10 @@ class Admin extends Component {
             <Table striped bordered className="mt-4">
               <thead>
                 <tr>
-                  <th width="10%">Id</th>
-                  <th width="10%">UserId</th>
-                  <th width="10%">Order Date</th>
-                  <th width="10%">Complete?</th>
-                  <th width="20%">Actions</th>
+                  <th width="25%">Id</th>
+                  <th width="25%">UserId</th>
+                  <th width="25%">Order Date</th>
+                  <th width="25%">Actions</th>
                 </tr>
               </thead>
               <tbody>{orderData}</tbody>

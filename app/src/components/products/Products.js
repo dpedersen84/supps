@@ -4,6 +4,8 @@ import ProductCard from "../product-card/ProductCard";
 import "./Products.css";
 
 class Products extends Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -15,34 +17,46 @@ class Products extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
+
     this.setState({
       isLoading: true
     });
 
     fetch("/api/goals")
       .then(res => res.json())
-      .then(data =>
-        this.setState({
-          goals: data
-        })
-      );
+      .then(data => {
+        if (this._isMounted) {
+          this.setState({
+            goals: data
+          });
+        }
+      });
 
     fetch("/api/category")
       .then(res => res.json())
-      .then(data =>
-        this.setState({
-          categories: data
-        })
-      );
+      .then(data => {
+        if (this._isMounted) {
+          this.setState({
+            categories: data
+          });
+        }
+      });
 
     fetch("/api/products")
       .then(res => res.json())
-      .then(data =>
-        this.setState({
-          products: data,
-          isLoading: false
-        })
-      );
+      .then(data => {
+        if (this._isMounted) {
+          this.setState({
+            products: data,
+            isLoading: false
+          });
+        }
+      });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleGoalClick(goalId) {
@@ -52,12 +66,14 @@ class Products extends Component {
 
     fetch(`api/products/goal/${goalId}`)
       .then(res => res.json())
-      .then(data =>
-        this.setState({
-          products: data,
-          isLoading: false
-        })
-      );
+      .then(data => {
+        if (this._isMounted) {
+          this.setState({
+            products: data,
+            isLoading: false
+          });
+        }
+      });
   }
 
   handleCategoryClick(categoryId) {
@@ -67,12 +83,14 @@ class Products extends Component {
 
     fetch(`api/products/category/${categoryId}`)
       .then(res => res.json())
-      .then(data =>
-        this.setState({
-          products: data,
-          isLoading: false
-        })
-      );
+      .then(data => {
+        if (this._isMounted) {
+          this.setState({
+            products: data,
+            isLoading: false
+          });
+        }
+      });
   }
 
   handleAllProductsClick() {
@@ -82,12 +100,14 @@ class Products extends Component {
 
     fetch("/api/products")
       .then(res => res.json())
-      .then(data =>
-        this.setState({
-          products: data,
-          isLoading: false
-        })
-      );
+      .then(data => {
+        if (this._isMounted) {
+          this.setState({
+            products: data,
+            isLoading: false
+          });
+        }
+      });
   }
 
   render() {

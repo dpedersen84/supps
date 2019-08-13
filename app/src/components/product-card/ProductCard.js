@@ -12,26 +12,6 @@ class ProductCard extends Component {
     };
   }
 
-  addToOrder(product) {
-    localStorage.setItem(product.productId, product);
-    window.location.reload();
-    // this.setState((prevState, props) => {
-    //   return {
-    //     order: [...prevState.order, product]
-    //   };
-    // });
-  }
-
-  deleteFromOrder(product) {
-    localStorage.removeItem(product.productId);
-    window.location.reload();
-    // this.setState({
-    //   order: this.state.order.filter(prod => {
-    //     return prod !== product.target.value;
-    //   })
-    // });
-  }
-
   render() {
     const { product } = this.props;
 
@@ -50,24 +30,6 @@ class ProductCard extends Component {
           <CardBody>
             <CardTitle>{product.name}</CardTitle>
             <CardText>${product.price}</CardText>
-            {/* {this.state.order.includes(product) ? ( */}
-            {/* {localStorage.getItem(product.productId) ? (
-              <Button
-                outline
-                color="warning"
-                onClick={this.deleteFromOrder.bind(this, product)}
-              >
-                Remove From Order
-              </Button>
-            ) : (
-              <Button
-                outline
-                color="primary"
-                onClick={this.addToOrder.bind(this, product)}
-              >
-                Add To Order
-              </Button>
-            )} */}
           </CardBody>
         </Card>
       </div>

@@ -10,7 +10,7 @@ class Detail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: 1,
+      userId: 4,
       order: {},
       product: {},
       products: [],
@@ -28,34 +28,38 @@ class Detail extends Component {
       isLoading: true
     });
 
-    fetch(`/api/products/${this.props.match.params.id}`)
-      .then(res => res.json())
-      .then(data => {
+    axios
+      .get(`/api/products/${this.props.match.params.id}`)
+      .then(response => {
         if (this._isMounted) {
           this.setState({
-            product: data,
-            goal: data.goal,
-            category: data.category
+            product: response.data,
+            goal: response.data.goal,
+            category: response.data.category
           });
         }
+      })
+      .catch(error => {
+        console.log(error);
       });
 
-    fetch(`/api/reviews/product/${this.props.match.params.id}`)
-      .then(res => res.json())
-      .then(data => {
+    axios
+      .get(`/api/reviews/product/${this.props.match.params.id}`)
+      .then(response => {
         if (this._isMounted) {
           this.setState({
-            reviews: data
+            reviews: response.data
           });
         }
+      })
+      .catch(error => {
+        console.log(error);
       });
 
     axios
       .get(`/api/orders/unsent/${this.state.userId}`)
       .then(response => {
         if (this._isMounted) {
-          console.log(response.data);
-
           this.setState({
             order: response.data,
             isLoading: false
@@ -73,20 +77,40 @@ class Detail extends Component {
       });
   }
 
-  componentDidUpdate(prevProps) {}
-
   componentWillUnmount() {
     this._isMounted = false;
   }
 
   addToOrder(orderId, productId) {
-    axios.post(`/api/orders/${orderId}/${productId}`);
-    window.location.reload();
+    axios.post(`/api/orders/${orderId}/${productId}`).then(() => {
+      axios
+        .get(`/api/orders/unsent/${this.state.userId}`)
+        .then(response => {
+          if (this._isMounted) {
+            this.setState({
+              order: response.data
+            });
+
+            if (response.data.products != null) {
+              this.setState({
+                products: response.data.products
+              });
+            }
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    });
   }
 
   deleteFromOrder(orderId, productId) {
-    axios.delete(`/api/orders/${orderId}/${productId}`);
-    window.location.reload();
+    axios.delete(`/api/orders/${orderId}/${productId}`).then(() => {
+      let updatedProducts = [...this.state.products].filter(
+        p => p.productId !== productId
+      );
+      this.setState({ products: updatedProducts });
+    });
   }
 
   render() {
