@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dp.supps.data;
 
 import com.dp.supps.entities.Goal;
@@ -16,16 +11,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author Dan
- */
 @Repository
 public class GoalDaoDB implements GoalDao {
 
     @Autowired
     JdbcTemplate jdbc;
-
+    
     @Override
     public Goal getGoalById(int id) {
         try {
@@ -53,11 +44,6 @@ public class GoalDaoDB implements GoalDao {
 
         jdbc.update(sql, goal.getName());
 
-//        int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()",
-//                Integer.class);
-//
-//        category.setId(newId);
-
         return goal;
     }
 
@@ -66,7 +52,7 @@ public class GoalDaoDB implements GoalDao {
     public void deleteGoalById(int id) {
         final String deleteProduct = "DELETE FROM product WHERE goalId = ?";
         jdbc.update(deleteProduct, id);
-        
+
         final String deleteGoal = "DELETE FROM goal WHERE id = ?";
         jdbc.update(deleteGoal, id);
     }
