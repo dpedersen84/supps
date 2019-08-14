@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dp.supps.data;
 
 import com.dp.supps.entities.Category;
@@ -16,10 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author dpede
- */
 @Repository
 public class CategoryDaoDB implements CategoryDao {
 
@@ -52,11 +43,6 @@ public class CategoryDaoDB implements CategoryDao {
         final String sql = "INSERT INTO category (name) VALUES (?)";
         
         jdbc.update(sql, category.getName());
-
-//        int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()",
-//                Integer.class);
-//
-//        category.setId(newId);
 
         return category;
     }

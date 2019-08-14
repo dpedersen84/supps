@@ -5,6 +5,7 @@ import com.dp.supps.service.CategoryService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,13 +25,18 @@ public class CategoryController {
     }
     
     @GetMapping("/api/category")
-    public List<Category> getCategories() {
-        return categoryServ.allCategories();
+    public List<Category> getAllCategories() {
+        return categoryServ.getAllCategories();
     }
     
     @GetMapping("/api/category/{id}")
-    public Category getCategoryById(@PathVariable int id) {
-        return categoryServ.getCategoryById(id);
+    public ResponseEntity<Category> getCategoryById(@PathVariable int id) {
+        Category result = categoryServ.getCategoryById(id);
+        
+        if (result == null) {
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(result);
     }
     
     @PostMapping("/api/category")
