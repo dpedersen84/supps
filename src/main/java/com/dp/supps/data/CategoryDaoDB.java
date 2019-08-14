@@ -33,26 +33,28 @@ public class CategoryDaoDB implements CategoryDao {
     @Override
     public List<Category> getAllCategories() {
         final String sql = "SELECT * FROM category";
-        
+
         return jdbc.query(sql, new CategoryMapper());
     }
 
     @Override
     @Transactional
     public Category addCategory(Category category) {
-        final String sql = "INSERT INTO category (name) VALUES (?)";
+        final String sql = "INSERT INTO category (name) VALUES (?) RETURNING id";
         
-        jdbc.update(sql, category.getName());
-
+        int id = jdbc.queryForObject(sql, new Object[] {category.getName()}, Integer.class);
+        
+        category.setId(id);
+        
         return category;
     }
-    
+
     @Override
     @Transactional
     public void deleteCategoryById(int id) {
         final String deleteProduct = "DELETE FROM product WHERE categoryId = ?";
         jdbc.update(deleteProduct, id);
-        
+
         final String deleteCategory = "DELETE FROM category WHERE id = ?";
         jdbc.update(deleteCategory, id);
     }

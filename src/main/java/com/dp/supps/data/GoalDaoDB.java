@@ -39,10 +39,12 @@ public class GoalDaoDB implements GoalDao {
 
     @Override
     @Transactional
-    public Goal createGoal(Goal goal) {
-        final String sql = "INSERT INTO goal (name) VALUES (?)";
+    public Goal addGoal(Goal goal) {
+        final String sql = "INSERT INTO goal (name) VALUES (?) RETURNING id";
 
-        jdbc.update(sql, goal.getName());
+        int id = jdbc.queryForObject(sql, new Object[] {goal.getName()}, Integer.class);
+        
+        goal.setId(id);
 
         return goal;
     }

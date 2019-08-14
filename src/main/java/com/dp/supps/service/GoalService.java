@@ -24,15 +24,8 @@ public class GoalService {
         return goalDao.getGoalById(id);
     }
     
-    public Goal createGoal(Goal goal) {
-        // set goal id
-        List<Goal> goals = getAllGoals();
-
-        Goal last = goals.get(goals.size() - 1);
-
-        goal.setId(last.getId() + 1);
-        
-        return goalDao.createGoal(goal);
+    public Goal addGoal(Goal goal) {
+        return goalDao.addGoal(goal);
     }
     
     public void deleteGoalById(int id) {

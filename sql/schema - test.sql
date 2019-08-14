@@ -4,7 +4,7 @@ drop table if exists orders;
 drop table if exists product;
 drop table if exists goal;
 drop table if exists category;
-drop table if exists public."user";
+drop table if exists users;
 
 create table goal(
 	id serial primary key,
@@ -23,7 +23,7 @@ create table product(
 	inventory int not null,
 	goalId int not null references goal(id),
 	categoryId int not null references category(id),
-	description varchar(200),
+	headline varchar(200),
 	image varchar(300)
 );
 
@@ -34,19 +34,20 @@ create table review(
 	description varchar(300)
 );
 
-create table public."user"(
+create table users(
 	id serial primary key not null,
-	name varchar(100) not null,
-	email varchar(50) not null,
+	username varchar(100) not null,
 	isAdmin bool not null,
-	password varchar(100) not null
+	password varchar(100) not null,
+	role varchar(10)
 );
 
 create table orders(
 	orderId serial primary key not null,
-	totalPrice decimal(5,2) not null,
+	totalPrice decimal(5,2),
 	orderDate date not null,
-	userId int not null references public."user"(id)
+	userId int not null references users(id),
+	orderSent bool not null
 );
 	
 create table orderproduct(

@@ -41,8 +41,8 @@ public class GoalController {
 
     @PostMapping("/api/goals")
     @ResponseStatus(HttpStatus.CREATED)
-    public Goal createGoal(@RequestBody Goal goal) {
-        return goalServ.createGoal(goal);
+    public Goal addGoal(@RequestBody Goal goal) {
+        return goalServ.addGoal(goal);
     }
 
     @DeleteMapping("/api/goals/{id}")

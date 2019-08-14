@@ -67,7 +67,11 @@ insert into review(productid, rating, description) values
 	(1, 5, 'Best ever!'), 
 	(2, 5, 'Awesome!'),
 	(2, 2, 'Tasted like crap!'),
-	(2, 5, 'Great product!');
+	(2, 5, 'Great product!'),
+	(4, 1, 'Tasted so bad I went back to eating meat...'),
+	(5, 5, 'Lost 100 pounds!  Never looked so malnourished!'),
+	(9, 3, 'Tastes like a candy bar!  Could be a larger serving!'),
+	(6, 4, 'I glow!');
 
 create table users(
 	id serial primary key not null,

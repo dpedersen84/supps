@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.dp.supps.data;
 
 import com.dp.supps.entities.Category;
@@ -19,41 +14,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-/**
- *
- * @author dpede
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ProductRepositoryTest {
     
-//    @Autowired
-//    CategoryRepository categoryRepo;
-//    
-//    @Autowired
-//    GoalRepository goalRepo;
-//    
-//    @Autowired
-//    ProductRepository productRepo;
-//    
-//    public ProductRepositoryTest() {
-//    }
-//    
+    @Autowired
+    CategoryDaoDB categoryDB;
+    
+    @Autowired
+    GoalDaoDB goalDB;
+    
+    @Autowired
+    ProductDaoDB productDB;
+    
+    public ProductRepositoryTest() {
+    }
+    
 //    @Before
 //    public void setUp() {
-//        List<Goal> allGoals = goalRepo.findAll();
+//        List<Goal> allGoals = GoalDaoDB();
 //        for (Goal goal : allGoals) {
-//            goalRepo.delete(goal);
+//            GoalDaoDB.delete(goal);
 //        }
 //        
-//        List<Category> allCategories = categoryRepo.findAll();
+//        List<Category> allCategories = CategoryDaoDB.findAll();
 //        for (Category c : allCategories) {
-//            categoryRepo.delete(c);
+//            CategoryDaoDB.delete(c);
 //        }
 //        
-//        List<Product> allProducts = productRepo.findAll();
+//        List<Product> allProducts = ProductDaoDB.findAll();
 //        for (Product product : allProducts) {
-//            productRepo.deleteById(product.getId());
+//            ProductDaoDB.deleteById(product.getId());
 //        }
 //    }
 //
