@@ -55,7 +55,7 @@ public class ProductDaoDB implements ProductDao {
     }
 
     @Override
-    public Product findByProductId(int productId) {
+    public Product getProductById(int productId) {
         try {
             final String sql = "SELECT * FROM product WHERE productId = ?";
             Product product = jdbc.queryForObject(sql, new ProductMapper(), productId);
@@ -73,16 +73,13 @@ public class ProductDaoDB implements ProductDao {
 
     @Override
     @Transactional
-    public Product addProduct(Product product) {
+    public Product createProduct(Product product) {
         final String sql = "INSERT INTO product (name, price, inventory, goalId, categoryId) VALUES (?, ?, ?, ?, ?)";
 
         jdbc.update(sql, product.getName(), product.getPrice(),
                 product.getInventory(), product.getGoal().getId(),
                 product.getCategory().getId());
 
-//        int newId = jdbc.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
-//        
-//        product.setProductId(newId);
         return product;
     }
 

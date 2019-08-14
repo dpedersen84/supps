@@ -26,8 +26,8 @@ public class ProductController {
     }
 
     @GetMapping("/api/products")
-    public List<Product> getProducts() {
-        return productServ.allProducts();
+    public List<Product> getAllProducts() {
+        return productServ.getAllProducts();
     }
 
     @GetMapping("/api/products/{id}")

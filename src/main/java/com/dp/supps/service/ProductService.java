@@ -25,7 +25,7 @@ public class ProductService {
         this.productDao = productDao;
     }
     
-    public List<Product> allProducts() {
+    public List<Product> getAllProducts() {
         return productDao.getAllProducts();
     }
     
@@ -38,11 +38,11 @@ public class ProductService {
     }
  
     public Product findProductById(int productId) {
-        return productDao.findByProductId(productId);
+        return productDao.getProductById(productId);
     }
     
     public Product addProduct(Product product) {
-        return productDao.addProduct(product);
+        return productDao.createProduct(product);
     }
     
     public void updateProduct(Product product) {

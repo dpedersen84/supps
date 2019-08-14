@@ -25,29 +25,29 @@ public class OrderController {
     }
 
     @GetMapping("/api/orders")
-    public List<Order> getOrders() {
-        List<Order> orders = orderServ.findAll();
+    public List<Order> getAllOrders() {
+        List<Order> orders = orderServ.getAllOrders();
 
         return orders;
     }
 
     @GetMapping("/api/orders/sent")
     public List<Order> getSentOrders() {
-        List<Order> orders = orderServ.findSent();
+        List<Order> orders = orderServ.getSentOrders();
 
         return orders;
     }
 
     @GetMapping("/api/orders/unsent")
     public List<Order> getUnsentOrders() {
-        List<Order> orders = orderServ.findUnsent();
+        List<Order> orders = orderServ.getUnsentOrders();
 
         return orders;
     }
 
     @GetMapping("/api/orders/unsent/{userId}")
-    public ResponseEntity<Order> findUnsentOrderByUserId(@PathVariable int userId) {
-        Order result = orderServ.findUnsentOrderByUserId(userId);
+    public ResponseEntity<Order> getUnsentOrderByUserId(@PathVariable int userId) {
+        Order result = orderServ.getUnsentOrderByUserId(userId);
 
         if (result == null) {
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
@@ -56,8 +56,8 @@ public class OrderController {
     }
 
     @GetMapping("/api/orders/{id}")
-    public ResponseEntity<Order> findOrderById(@PathVariable int id) {
-        Order result = orderServ.findOrderByOrderId(id);
+    public ResponseEntity<Order> getOrderById(@PathVariable int id) {
+        Order result = orderServ.getOrderById(id);
 
         if (result == null) {
             return new ResponseEntity(null, HttpStatus.NOT_FOUND);
@@ -73,22 +73,22 @@ public class OrderController {
     
     @PostMapping("/api/orders/sent")
     @ResponseStatus(HttpStatus.CREATED)
-    public Order sendOrder(@RequestBody Order order) {
+    public Order completeOrder(@RequestBody Order order) {
         return orderServ.completeOrder(order);
     }
 
     @DeleteMapping("/api/orders/{id}")
-    public void delete(@PathVariable int id) {
+    public void deleteOrderById(@PathVariable int id) {
         orderServ.deleteOrderById(id);
     }
     
     @PostMapping("/api/orders/{orderId}/{productId}")
-    public void addProductToOrder(@PathVariable int orderId, @PathVariable int productId) {
+    public void addToOrderProduct(@PathVariable int orderId, @PathVariable int productId) {
         orderServ.addToOrderProduct(orderId, productId);
     }
 
     @DeleteMapping("/api/orders/{orderId}/{productId}")
-    public void deleteProductFromOrder(@PathVariable int orderId, @PathVariable int productId) {
+    public void deleteFromOrderProduct(@PathVariable int orderId, @PathVariable int productId) {
         orderServ.deleteFromOrderProduct(orderId, productId);
     }
 }

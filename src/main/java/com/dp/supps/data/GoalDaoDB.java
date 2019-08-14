@@ -39,7 +39,7 @@ public class GoalDaoDB implements GoalDao {
 
     @Override
     @Transactional
-    public Goal addGoal(Goal goal) {
+    public Goal createGoal(Goal goal) {
         final String sql = "INSERT INTO goal (name) VALUES (?)";
 
         jdbc.update(sql, goal.getName());

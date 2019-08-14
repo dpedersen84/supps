@@ -19,20 +19,20 @@ public class OrderService {
         this.orderDao = orderDao;
     }
 
-    public List<Order> findAll() {
+    public List<Order> getAllOrders() {
         List<Order> orders = orderDao.getAllOrders();
         return orders;
     }
 
-    public List<Order> findSent() {
+    public List<Order> getSentOrders() {
         return orderDao.getSentOrders();
     }
 
-    public List<Order> findUnsent() {
+    public List<Order> getUnsentOrders() {
         return orderDao.getUnsentOrders();
     }
 
-    public Order findUnsentOrderByUserId(int userId) {
+    public Order getUnsentOrderByUserId(int userId) {
         Order order = orderDao.getUnsentOrderByUserId(userId);
 
         if (order != null) {
@@ -45,6 +45,7 @@ public class OrderService {
 
             if (products.size() > 0) {
                 BigDecimal totalPrice = new BigDecimal("0");
+                
                 for (Product product : products) {
                     BigDecimal price = product.getPrice();
                     totalPrice = totalPrice.add(price);
@@ -52,14 +53,17 @@ public class OrderService {
                 order.setTotalPrice(totalPrice);
             }
             return order;
+            
         } else {
             Order newOrder = new Order();
+            
             newOrder.setUserId(userId);
+            
             return createOrder(newOrder);
         }
     }
 
-    public Order findOrderByOrderId(int orderId) {
+    public Order getOrderById(int orderId) {
         return orderDao.getOrderById(orderId);
     }
 
@@ -84,7 +88,7 @@ public class OrderService {
 
     public Order createOrder(Order order) {
         // set order id
-        List<Order> orders = findAll();
+        List<Order> orders = getAllOrders();
 
         Order last = orders.get(orders.size() - 1);
 

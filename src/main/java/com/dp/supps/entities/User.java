@@ -1,6 +1,5 @@
 package com.dp.supps.entities;
 
-import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 

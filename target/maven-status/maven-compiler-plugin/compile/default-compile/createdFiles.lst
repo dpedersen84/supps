@@ -1,6 +1,7 @@
 com\dp\supps\data\ProductDaoDB$ProductMapper.class
 com\dp\supps\service\GoalService.class
 com\dp\supps\controllers\ProductController.class
+com\dp\supps\data\UserDao.class
 com\dp\supps\data\GoalDaoDB$GoalMapper.class
 com\dp\supps\data\GoalDao.class
 com\dp\supps\data\ReviewDao.class
@@ -8,6 +9,7 @@ com\dp\supps\data\CategoryDaoDB$CategoryMapper.class
 com\dp\supps\data\CategoryDaoDB.class
 com\dp\supps\data\GoalDaoDB.class
 com\dp\supps\data\ProductDao.class
+com\dp\supps\controllers\UserController.class
 com\dp\supps\data\CategoryDao.class
 com\dp\supps\data\ReviewDaoDB$ReviewMapper.class
 com\dp\supps\entities\Review.class
@@ -18,14 +20,17 @@ com\dp\supps\entities\User.class
 com\dp\supps\controllers\ReviewController.class
 com\dp\supps\service\OrderService.class
 com\dp\supps\controllers\GoalController.class
+com\dp\supps\data\UserDaoDB$UserMapper.class
 com\dp\supps\controllers\CategoryController.class
 com\dp\supps\App.class
 com\dp\supps\data\OrderDao.class
 com\dp\supps\entities\Goal.class
 com\dp\supps\entities\Order.class
 com\dp\supps\service\ReviewService.class
+com\dp\supps\data\UserDaoDB.class
 com\dp\supps\data\OrderDaoDB$OrderMapper.class
 com\dp\supps\entities\Product.class
+com\dp\supps\service\UserService.class
 com\dp\supps\controllers\OrderController.class
 com\dp\supps\entities\Category.class
 com\dp\supps\data\ProductDaoDB.class

@@ -24,6 +24,13 @@ public class UserService {
     }
     
     public User createUser(User user) {
+        // set user id
+        List<User> users = getAllUsers();
+
+        User last = users.get(users.size() - 1);
+
+        user.setId(last.getId() + 1);
+        
         // only I may be the admin!
         user.setIsAdmin(false);
         

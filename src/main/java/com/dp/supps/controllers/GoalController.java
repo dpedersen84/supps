@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class GoalController {
+    
     private final GoalService goalServ;
 
     @Autowired
@@ -24,12 +25,12 @@ public class GoalController {
     }
 
     @GetMapping("/api/goals")
-    public List<Goal> getProducts() {
-        return goalServ.allGoals();
+    public List<Goal> getAllGoals() {
+        return goalServ.getAllGoals();
     }
 
     @GetMapping("/api/goals/{id}")
-    public ResponseEntity<Goal> findProductById(@PathVariable int id) {
+    public ResponseEntity<Goal> getGoalById(@PathVariable int id) {
         Goal result = goalServ.getGoalById(id);
 
         if (result == null) {
@@ -40,12 +41,12 @@ public class GoalController {
 
     @PostMapping("/api/goals")
     @ResponseStatus(HttpStatus.CREATED)
-    public Goal addProduct(@RequestBody Goal goal) {
-        return goalServ.addGoal(goal);
+    public Goal createGoal(@RequestBody Goal goal) {
+        return goalServ.createGoal(goal);
     }
 
     @DeleteMapping("/api/goals/{id}")
-    public void delete(@PathVariable int id) {
+    public void deleteGoal(@PathVariable int id) {
         goalServ.deleteGoalById(id);
     }
 }

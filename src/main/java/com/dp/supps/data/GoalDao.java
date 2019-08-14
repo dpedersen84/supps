@@ -9,7 +9,7 @@ public interface GoalDao {
 
     List<Goal> getAllGoals();
 
-    Goal addGoal(Goal goal);
+    Goal createGoal(Goal goal);
 
     void deleteGoalById(int id);
 }
