@@ -31,26 +31,26 @@ public class ProductDaoDB implements ProductDao {
 
         return products;
     }
-    
+
     @Override
     public List<Product> getProductsByGoalId(int goalId) {
         final String sql = "SELECT * FROM product WHERE goalId = ?";
-        
+
         List<Product> products = jdbc.query(sql, new ProductMapper(), goalId);
-        
+
         addGoalAndCategoryToProducts(products);
-        
+
         return products;
     }
-    
+
     @Override
     public List<Product> getProductsByCategoryId(int categoryId) {
         final String sql = "SELECT * FROM product WHERE categoryId = ?";
-        
+
         List<Product> products = jdbc.query(sql, new ProductMapper(), categoryId);
-        
+
         addGoalAndCategoryToProducts(products);
-        
+
         return products;
     }
 
@@ -59,12 +59,12 @@ public class ProductDaoDB implements ProductDao {
         try {
             final String sql = "SELECT * FROM product WHERE productId = ?";
             Product product = jdbc.queryForObject(sql, new ProductMapper(), productId);
-            
+
             if (product != null) {
                 product.setCategory(getCategoryForProduct(product.getProductId()));
                 product.setGoal(getGoalForProduct(product.getProductId()));
             }
-            
+
             return product;
         } catch (DataAccessException ex) {
             return null;
@@ -74,11 +74,15 @@ public class ProductDaoDB implements ProductDao {
     @Override
     @Transactional
     public Product createProduct(Product product) {
-        final String sql = "INSERT INTO product (name, price, inventory, goalId, categoryId) VALUES (?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO product (name, price, inventory,"
+                + " goalId, categoryId) VALUES (?, ?, ?, ?, ?)"
+                + " RETURNING productId";
 
-        jdbc.update(sql, product.getName(), product.getPrice(),
-                product.getInventory(), product.getGoal().getId(),
-                product.getCategory().getId());
+        int id = jdbc.queryForObject(sql, new Object[]{product.getName(), product.getPrice(),
+            product.getInventory(), product.getGoal().getId(),
+            product.getCategory().getId()}, Integer.class);
+
+        product.setProductId(id);
 
         return product;
     }

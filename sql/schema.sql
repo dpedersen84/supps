@@ -11,8 +11,7 @@ create table goal(
 	name varchar(25) not null
 );
 
-insert into goal(name)
-	values 
+insert into goal(name) values 
 	('Build Muscle'),
 	('Burn Fat'),
 	('Increase Energy'),
@@ -25,8 +24,7 @@ create table category(
 	name varchar(25) not null
 );
 
-insert into category(name)
-	values
+insert into category(name) values
 	('Protein'),
 	('Pre-Workout'),
 	('Appetite Surpressant'),

@@ -16,12 +16,12 @@ public class ReviewDaoDB implements ReviewDao {
 
     @Autowired
     JdbcTemplate jdbc;
-    
+
     @Override
     public Review getReviewById(int id) {
         try {
             final String sql = "SELECT * FROM review WHERE id = ?";
-        
+
             return jdbc.queryForObject(sql, new ReviewMapper(), id);
         } catch (DataAccessException ex) {
             return null;
@@ -31,17 +31,21 @@ public class ReviewDaoDB implements ReviewDao {
     @Override
     public List<Review> getReviewsByProductId(int productId) {
         final String sql = "SELECT * FROM review WHERE productId = ?";
-        
+
         return jdbc.query(sql, new ReviewMapper(), productId);
     }
 
     @Override
     @Transactional
     public Review addReview(Review review) {
-        final String sql = "INSERT INTO review (productid, rating, description) VALUES (?, ?, ?)";
+        final String sql = "INSERT INTO review (productid, rating, description)"
+                + " VALUES (?, ?, ?) RETURNING id";
+
+        int id = jdbc.queryForObject(sql, new Object[]{review.getProductId(),
+            review.getRating(), review.getDescription()}, Integer.class);
         
-        jdbc.update(sql, review.getProductId(), review.getRating(), review.getDescription());
-        
+        review.setId(id);
+
         return review;
     }
 
@@ -49,10 +53,10 @@ public class ReviewDaoDB implements ReviewDao {
     @Transactional
     public void deleteReviewById(int id) {
         final String sql = "DELETE FROM review WHERE id = ?";
-        
+
         jdbc.update(sql, id);
     }
-    
+
     public static final class ReviewMapper implements RowMapper<Review> {
 
         @Override
