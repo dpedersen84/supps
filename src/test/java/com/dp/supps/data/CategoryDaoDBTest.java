@@ -1,6 +1,8 @@
 package com.dp.supps.data;
 
 import com.dp.supps.entities.Category;
+import com.dp.supps.entities.Product;
+import com.dp.supps.entities.Review;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +15,12 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CategoryDaoDBTest {
+    
+    @Autowired
+    ReviewDaoDB reviewDao;
+
+    @Autowired
+    ProductDaoDB productDao;
 
     @Autowired
     CategoryDao categoryDao;
@@ -22,6 +30,20 @@ public class CategoryDaoDBTest {
 
     @BeforeEach
     public void setUp() {
+        List<Product> products = productDao.getAllProducts();
+
+        for (Product p : products) {
+            List<Review> reviews = reviewDao
+                    .getReviewsByProductId(p.getProductId());
+
+            for (Review r : reviews) {
+                reviewDao.deleteReviewById(r.getId());
+            }
+        }
+
+        for (Product p : products) {
+            productDao.deleteProductById(p.getProductId());
+        }
         List<Category> categories = categoryDao.getAllCategories();
 
         for (Category c : categories) {

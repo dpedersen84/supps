@@ -1,2 +1,4 @@
-com\dp\supps\data\ProductRepositoryTest.class
 com\dp\supps\suppsApplicationTests.class
+com\dp\supps\data\GoalDaoDBTest.class
+com\dp\supps\data\ReviewDaoDBTest.class
+com\dp\supps\data\CategoryDaoDBTest.class

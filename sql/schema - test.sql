@@ -11,16 +11,10 @@ create table goal(
 	name varchar(25) not null
 );
 
-insert into goal(name) values 
-	('Build Muscle');
-
 create table category(
 	id serial primary key,
 	name varchar(25) not null
 );
-
-insert into category(name) values
-	('Protein');
 
 create table product(
 	productId serial primary key not null,
@@ -32,9 +26,6 @@ create table product(
 	headline varchar(200),
 	image varchar(300)
 );
-
-insert into product(name, price, inventory, goalId, categoryId, headline, image) values
-	('Buzz', 35.00, 10, 1, 1, 'The highest caffeinated pre-workout on the market!', 'https://i.imgur.com/X4bpIpS.png');
 
 create table review(
 	id serial primary key not null,
