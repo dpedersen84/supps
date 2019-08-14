@@ -33,16 +33,16 @@ class AppNavbar extends Component {
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink tag={Link} to="/products">
-                Products
-              </NavLink>
-            </NavItem>
-            <NavItem>
               <NavLink tag={Link} to="/admin">
                 Admin
               </NavLink>
             </NavItem>
             <NavItem>
+              <NavLink tag={Link} to="/products">
+                Products
+              </NavLink>
+            </NavItem>
+            {/* <NavItem>
               <NavLink tag={Link} to="/login">
                 Login
               </NavLink>
@@ -51,7 +51,7 @@ class AppNavbar extends Component {
               <NavLink tag={Link} to="/register">
                 Register
               </NavLink>
-            </NavItem>
+            </NavItem> */}
             <NavItem>
               <NavLink tag={Link} to="/checkout">
                 Checkout

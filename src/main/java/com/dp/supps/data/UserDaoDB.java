@@ -48,19 +48,9 @@ public class UserDaoDB implements UserDao {
     }
 
     @Override
-    public void updateUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void deleteUser(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     @Transactional
     public User createUser(User user) {
-        final String sql = "INSERT INTO users(username, password, isAdmin, role) VALUES(?, ?, ?, ?, ?)";
+        final String sql = "INSERT INTO users(username, password, isAdmin, role) VALUES(?, ?, ?, ?)";
         
         jdbc.update(sql, user.getUsername(), user.getPassword(), user.isIsAdmin(), user.getRole());
 

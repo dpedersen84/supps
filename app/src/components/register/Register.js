@@ -5,16 +5,25 @@ import axios from "axios";
 import "./Register.css";
 
 class Register extends Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
       username: "",
       password: "",
-      confirmPassword: "",
-      isLoading: true
+      confirmPassword: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleChange = event => {
@@ -27,10 +36,10 @@ class Register extends Component {
   async handleSubmit(event) {
     event.preventDefault();
 
-    const { name, password, email } = this.state;
+    const { username, password, email } = this.state;
 
     const newUser = {
-      name: name,
+      username: username,
       email: email,
       password: password
     };
@@ -52,12 +61,12 @@ class Register extends Component {
             <div className="col-sm-12 col-md-6 offset-md-3">
               <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
-                  <Label for="name">Username</Label>
+                  <Label for="username">Username</Label>
                   <Input
                     type="text"
-                    id="name"
-                    name="name"
-                    value={this.state.name}
+                    id="username"
+                    name="username"
+                    value={this.state.username}
                     onChange={this.handleChange}
                   />
                 </FormGroup>
@@ -88,7 +97,7 @@ class Register extends Component {
                     type="submit"
                     // need better validation
                     disabled={
-                      !this.state.name ||
+                      !this.state.username ||
                       !this.state.password ||
                       !this.state.confirmPassword ||
                       this.state.password !== this.state.confirmPassword

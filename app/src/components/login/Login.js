@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
-import { Button, Form, FormGroup, Label, Input, Spinner } from "reactstrap";
+import { withRouter } from "react-router-dom";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import axios from "axios";
 import "./Login.css";
 
 class Login extends Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -13,6 +15,15 @@ class Login extends Component {
       isLoading: true
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleChange = event => {
@@ -21,6 +32,19 @@ class Login extends Component {
       [name]: value
     });
   };
+
+  async handleSubmit(event) {
+    event.preventDefault();
+
+    const { username, password } = this.state;
+
+    axios
+      .get(`/api/users/${username}/${password}`)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => console.log(error));
+  }
 
   render() {
     return (
@@ -70,4 +94,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

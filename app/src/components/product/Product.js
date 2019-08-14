@@ -172,7 +172,7 @@ class Product extends Component {
         <div className="container">
           {productId ? <h1>Edit Product</h1> : <h1>Add A Product</h1>}
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-sm-12 col-md-6 offset-md-3">
               <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
                   <Label for="name">Name</Label>

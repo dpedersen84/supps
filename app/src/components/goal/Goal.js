@@ -46,7 +46,7 @@ class Goal extends Component {
         <div className="container">
           <h1>Add A Goal</h1>
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-sm-12 col-md-6 offset-md-3">
               <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
                   <Label for="name">Name</Label>

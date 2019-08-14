@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Button, Form, FormGroup, Label, Input, Spinner } from "reactstrap";
+import {
+  Alert,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Spinner
+} from "reactstrap";
 import axios from "axios";
 import "./Review.css";
 
@@ -15,11 +23,14 @@ class Review extends Component {
       rating: "",
       productId: "",
       description: "",
-      isLoading: true
+      isLoading: true,
+      visible: false,
+      errorMsg: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
   }
 
   componentDidMount() {
@@ -76,8 +87,17 @@ class Review extends Component {
           console.log(error);
         });
     } else {
-      console.log("NO!");
+      const { rating } = this.state;
+
+      this.setState({
+        visible: true,
+        errorMsg: `A Rating of ${rating} is great! But ratings cannot be higher than 5.`
+      });
     }
+  }
+
+  onDismiss() {
+    this.setState({ visible: false });
   }
 
   render() {
@@ -128,6 +148,14 @@ class Review extends Component {
                         value={this.state.rating}
                       />
                     </FormGroup>
+                    <Alert
+                      color="danger"
+                      isOpen={this.state.visible}
+                      toggle={this.onDismiss}
+                      className="mt-3"
+                    >
+                      {this.state.errorMsg}
+                    </Alert>
                     <FormGroup>
                       <Label for="description">What do you have to say?</Label>
                       <Input

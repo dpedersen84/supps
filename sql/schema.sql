@@ -87,7 +87,7 @@ create table orders(
 	orderId serial primary key not null,
 	totalPrice decimal(5,2),
 	orderDate date not null,
-	userId int not null references public."user"(id),
+	userId int not null references users(id),
 	orderSent bool not null
 );
 

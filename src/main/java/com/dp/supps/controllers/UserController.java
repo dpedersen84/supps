@@ -39,6 +39,17 @@ public class UserController {
         return userServ.getAllUsers();
     }
     
+    @GetMapping("/api/users/{username}/{password}")
+    public ResponseEntity<User> getUserByUsername(@PathVariable String username, @PathVariable String password) {
+        User result = userServ.getUserByUsername(username, password);
+        
+        if (result == null) {
+            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+        }
+        
+        return ResponseEntity.ok(result);
+    }
+    
     @PostMapping("/api/users")
     @ResponseStatus(HttpStatus.CREATED)
     public User createUser(@RequestBody User user) {
