@@ -90,10 +90,13 @@ public class ProductDaoDB implements ProductDao {
     @Override
     @Transactional
     public void updateProduct(Product product) {
-        final String sql = "UPDATE product SET name = ?, inventory = ?, goalId = ?, categoryId = ? WHERE productId = ?";
+        final String sql = "UPDATE product SET name = ?, price = ?,"
+                + " inventory = ?, goalId = ?, categoryId = ?, headline = ?,"
+                + " image = ? WHERE productId = ?";
 
-        jdbc.update(sql, product.getName(), product.getInventory(),
+        jdbc.update(sql, product.getName(), product.getPrice(), product.getInventory(),
                 product.getGoal().getId(), product.getCategory().getId(),
+                product.getHeadline(), product.getImage(),
                 product.getProductId());
     }
 
@@ -101,7 +104,8 @@ public class ProductDaoDB implements ProductDao {
     @Transactional
     public void deleteProductById(int productId) {
         // delete from orderproduct table 
-        final String deleteFromOrderProduct = "DELETE FROM orderproduct WHERE productId = ?";
+        final String deleteFromOrderProduct = "DELETE FROM orderproduct "
+                + "WHERE productId = ?";
         jdbc.update(deleteFromOrderProduct, productId);
 
         // delete from review table
