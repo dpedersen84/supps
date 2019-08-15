@@ -273,7 +273,7 @@ class Admin extends Component {
           </div>
           <hr />
           <div className="orderTable">
-            <h3>Past Orders</h3>
+            <h3>Complete Orders</h3>
             <Table striped bordered className="mt-4">
               <thead>
                 <tr>
