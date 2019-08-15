@@ -17,8 +17,6 @@ public class User {
     @NotBlank(message = "Password field cannot be blank!")
     @Size(max = 100, message = "Password cannot be more than 100 characters!")
     private String password;
-    
-    private String role;
 
     public int getId() {
         return id;
@@ -52,14 +50,6 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     @Override
     public int hashCode() {
         int hash = 3;
@@ -67,7 +57,6 @@ public class User {
         hash = 89 * hash + Objects.hashCode(this.username);
         hash = 89 * hash + (this.isAdmin ? 1 : 0);
         hash = 89 * hash + Objects.hashCode(this.password);
-        hash = 89 * hash + Objects.hashCode(this.role);
         return hash;
     }
 
@@ -93,9 +82,6 @@ public class User {
             return false;
         }
         if (!Objects.equals(this.password, other.password)) {
-            return false;
-        }
-        if (!Objects.equals(this.role, other.role)) {
             return false;
         }
         return true;

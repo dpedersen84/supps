@@ -40,10 +40,10 @@ public class UserDaoDB implements UserDao {
     @Transactional
     public User createUser(User user) {
         final String sql = "INSERT INTO users(username, password,"
-                + " isAdmin, role) VALUES(?, ?, ?, ?) RETURNING id";
+                + " isAdmin) VALUES(?, ?, ?) RETURNING id";
         
         int id = jdbc.queryForObject(sql, new Object[]{user.getUsername(),
-            user.getPassword(), user.isIsAdmin(), user.getRole()},
+            user.getPassword(), user.isIsAdmin()},
                 Integer.class);
         
         user.setId(id);
@@ -72,7 +72,6 @@ public class UserDaoDB implements UserDao {
             user.setUsername(rs.getString("username"));
             user.setPassword(rs.getString("password"));
             user.setIsAdmin(rs.getBoolean("isAdmin"));
-            user.setRole(rs.getString("role"));
             return user;
         }
     }

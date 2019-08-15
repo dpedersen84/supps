@@ -45,14 +45,6 @@ public class OrderDaoDBTest {
     @BeforeEach
     public void setUp() {
 
-//        List<User> users = userDao.getAllUsers();
-//
-//        if (users != null) {
-//            for (User u : users) {
-//                userDao.deleteUserById(u.getId());
-//            }
-//        }
-
         List<Order> orders = orderDao.getAllOrders();
 
         for (Order o : orders) {

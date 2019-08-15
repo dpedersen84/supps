@@ -78,15 +78,14 @@ create table users(
 	id serial primary key not null,
 	username varchar(100) not null,
 	isAdmin bool not null,
-	password varchar(100) not null,
-	role varchar(10)
+	password varchar(100) not null
 );
 
-insert into users(username, isAdmin, password, role) values
-	('dan', true, 'password', 'ADMIN'),
-	('jim', false, 'password', 'USER'),
-	('sam', false, 'password', 'USER'),
-	('mike', false, 'password', 'USER');
+insert into users(username, isAdmin, password) values
+	('dan', true, 'password'),
+	('jim', false, 'password'),
+	('sam', false, 'password'),
+	('mike', false, 'password');
 
 create table orders(
 	orderId serial primary key not null,

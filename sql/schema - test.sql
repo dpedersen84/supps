@@ -38,8 +38,7 @@ create table users(
 	id serial primary key not null,
 	username varchar(100) not null,
 	isAdmin bool not null,
-	password varchar(100) not null,
-	role varchar(10)
+	password varchar(100) not null
 );
 
 create table orders(
