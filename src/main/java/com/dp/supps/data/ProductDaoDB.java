@@ -75,12 +75,12 @@ public class ProductDaoDB implements ProductDao {
     @Transactional
     public Product createProduct(Product product) {
         final String sql = "INSERT INTO product (name, price, inventory,"
-                + " goalId, categoryId) VALUES (?, ?, ?, ?, ?)"
-                + " RETURNING productId";
+                + " goalId, categoryId, headline, image) VALUES"
+                + " (?, ?, ?, ?, ?, ?, ?) RETURNING productId";
 
         int id = jdbc.queryForObject(sql, new Object[]{product.getName(), product.getPrice(),
             product.getInventory(), product.getGoal().getId(),
-            product.getCategory().getId()}, Integer.class);
+            product.getCategory().getId(), product.getHeadline(), product.getImage()}, Integer.class);
 
         product.setProductId(id);
 
