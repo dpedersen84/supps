@@ -49,8 +49,7 @@ class Product extends Component {
       .then(data => {
         if (this._isMounted) {
           this.setState({
-            categories: data,
-            isLoading: false
+            categories: data
           });
         }
       });
@@ -74,6 +73,10 @@ class Product extends Component {
             });
           }
         });
+    } else {
+      this.setState({
+        isLoading: false
+      });
     }
   }
 
@@ -208,7 +211,7 @@ class Product extends Component {
                   <Label for="goal">Goal</Label>
                   <Input
                     type="select"
-                    defaultValue={goal}
+                    defaultValue={goal ? goal : 1}
                     name="goal"
                     id="goal"
                     onChange={this.handleChange}
@@ -224,7 +227,7 @@ class Product extends Component {
                   <Label for="category">Category</Label>
                   <Input
                     type="select"
-                    defaultValue={category}
+                    defaultValue={category ? category : 1}
                     name="category"
                     id="category"
                     onChange={this.handleChange}
