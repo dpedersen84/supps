@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.dp.supps.data.ProductDaoDBTest" time="0.458" tests="6" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.dp.supps.data.OrderDaoDBTest" time="0.017" tests="8" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -61,10 +61,12 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="testGetProductsByGoalId" classname="com.dp.supps.data.ProductDaoDBTest" time="0"/>
-  <testcase name="testGetProductsByCategoryId" classname="com.dp.supps.data.ProductDaoDBTest" time="0"/>
-  <testcase name="testCreateAndGetAllProducts" classname="com.dp.supps.data.ProductDaoDBTest" time="0"/>
-  <testcase name="testUpdateProduct" classname="com.dp.supps.data.ProductDaoDBTest" time="0"/>
-  <testcase name="testDeleteProductById" classname="com.dp.supps.data.ProductDaoDBTest" time="0"/>
-  <testcase name="testGetProductById" classname="com.dp.supps.data.ProductDaoDBTest" time="0"/>
+  <testcase name="testAddToOrderProduct" classname="com.dp.supps.data.OrderDaoDBTest" time="0"/>
+  <testcase name="testGetUnsentOrderByUserId" classname="com.dp.supps.data.OrderDaoDBTest" time="0"/>
+  <testcase name="testDeleteOrderById" classname="com.dp.supps.data.OrderDaoDBTest" time="0"/>
+  <testcase name="testGetSentAndUnsentOrders" classname="com.dp.supps.data.OrderDaoDBTest" time="0"/>
+  <testcase name="testGetOrderById" classname="com.dp.supps.data.OrderDaoDBTest" time="0"/>
+  <testcase name="testCreateAndGetAllOrders" classname="com.dp.supps.data.OrderDaoDBTest" time="0"/>
+  <testcase name="testRemoveFromOrderProduct" classname="com.dp.supps.data.OrderDaoDBTest" time="0"/>
+  <testcase name="testCompleteOrder" classname="com.dp.supps.data.OrderDaoDBTest" time="0"/>
 </testsuite>

@@ -3,6 +3,7 @@ package com.dp.supps.data;
 import com.dp.supps.entities.Category;
 import com.dp.supps.entities.Goal;
 import com.dp.supps.entities.Product;
+import com.dp.supps.entities.Review;
 import java.math.BigDecimal;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,12 +27,24 @@ public class ProductDaoDBTest {
     @Autowired
     CategoryDaoDB categoryDao;
 
+    @Autowired
+    ReviewDaoDB reviewDao;
+
     public ProductDaoDBTest() {
     }
 
     @BeforeEach
     public void setUp() {
         List<Product> products = productDao.getAllProducts();
+
+        for (Product p : products) {
+            List<Review> reviews = reviewDao
+                    .getReviewsByProductId(p.getProductId());
+
+            for (Review r : reviews) {
+                reviewDao.deleteReviewById(r.getId());
+            }
+        }
 
         for (Product p : products) {
             productDao.deleteProductById(p.getProductId());
@@ -96,7 +109,7 @@ public class ProductDaoDBTest {
         p.setPrice(new BigDecimal("10"));
 
         productDao.createProduct(p);
-        
+
         List<Product> productsFromGoalOne = productDao.getProductsByGoalId(goalOne.getId());
         List<Product> productsFromGoalTwo = productDao.getProductsByGoalId(goalTwo.getId());
 
@@ -114,7 +127,7 @@ public class ProductDaoDBTest {
         Category c = new Category();
         c.setName("test cat");
         Category catOne = categoryDao.addCategory(c);
-        
+
         Category c2 = new Category();
         c2.setName("test cat 2");
         Category catTwo = categoryDao.addCategory(c2);
@@ -127,7 +140,7 @@ public class ProductDaoDBTest {
         p.setPrice(new BigDecimal("10"));
 
         productDao.createProduct(p);
-        
+
         List<Product> productsFromCatOne = productDao.getProductsByCategoryId(catOne.getId());
         List<Product> productsFromCatTwo = productDao.getProductsByCategoryId(catTwo.getId());
 
@@ -145,7 +158,7 @@ public class ProductDaoDBTest {
         Category c = new Category();
         c.setName("test cat");
         Category catOne = categoryDao.addCategory(c);
-        
+
         Product p = new Product();
         p.setName("test product");
         p.setGoal(goalOne);
@@ -154,9 +167,9 @@ public class ProductDaoDBTest {
         p.setPrice(new BigDecimal("10"));
 
         Product testProduct = productDao.createProduct(p);
-        
+
         Product fromDao = productDao.getProductById(testProduct.getProductId());
-        
+
         assertEquals(testProduct.getProductId(), fromDao.getProductId());
     }
 
@@ -169,7 +182,7 @@ public class ProductDaoDBTest {
         Category c = new Category();
         c.setName("test cat");
         Category catOne = categoryDao.addCategory(c);
-        
+
         Product p = new Product();
         p.setName("test product");
         p.setGoal(goalOne);
@@ -178,18 +191,18 @@ public class ProductDaoDBTest {
         p.setPrice(new BigDecimal("10"));
 
         p = productDao.createProduct(p);
-        
+
         Product fromDao = productDao.getProductById(p.getProductId());
-        
+
         assertEquals(p.getName(), fromDao.getName());
-        
+
         p.setName("updated name");
         productDao.updateProduct(p);
-        
+
         assertNotEquals(p.getName(), fromDao.getName());
-        
+
         fromDao = productDao.getProductById(p.getProductId());
-        
+
         assertEquals(p.getName(), fromDao.getName());
     }
 
@@ -202,7 +215,7 @@ public class ProductDaoDBTest {
         Category c = new Category();
         c.setName("test cat");
         Category catOne = categoryDao.addCategory(c);
-        
+
         Product p = new Product();
         p.setName("test product");
         p.setGoal(goalOne);
@@ -211,24 +224,24 @@ public class ProductDaoDBTest {
         p.setPrice(new BigDecimal("10"));
 
         p = productDao.createProduct(p);
-        
+
         Product p2 = new Product();
         p2.setName("test product");
         p2.setGoal(goalOne);
         p2.setCategory(catOne);
         p2.setInventory(10);
         p2.setPrice(new BigDecimal("10"));
-        
+
         p2 = productDao.createProduct(p);
-        
+
         List<Product> products = productDao.getAllProducts();
-        
+
         assertEquals(2, products.size());
-        
+
         productDao.deleteProductById(p2.getProductId());
-        
+
         products = productDao.getAllProducts();
-        
+
         assertEquals(1, products.size());
     }
 }

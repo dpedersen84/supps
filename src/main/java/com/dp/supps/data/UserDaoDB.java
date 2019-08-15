@@ -35,26 +35,32 @@ public class UserDaoDB implements UserDao {
         
         return users;
     }
-    
-    @Override
-    public User getUserByUsername(String username) {
-        try {
-            final String sql = "SELECT * FROM users WHERE username = ?";
-            User user = jdbc.queryForObject(sql, new UserMapper(), username);
-            return user;
-        } catch (DataAccessException ex) {
-            return null;
-        }
-    }
 
     @Override
     @Transactional
     public User createUser(User user) {
-        final String sql = "INSERT INTO users(username, password, isAdmin, role) VALUES(?, ?, ?, ?)";
+        final String sql = "INSERT INTO users(username, password,"
+                + " isAdmin, role) VALUES(?, ?, ?, ?) RETURNING id";
         
-        jdbc.update(sql, user.getUsername(), user.getPassword(), user.isIsAdmin(), user.getRole());
+        int id = jdbc.queryForObject(sql, new Object[]{user.getUsername(),
+            user.getPassword(), user.isIsAdmin(), user.getRole()},
+                Integer.class);
+        
+        user.setId(id);
 
         return user;
+    }
+    
+    @Override
+    @Transactional
+    public void deleteUserById(int id) {
+        final String deleteOrder = "DELETE FROM orders WHERE userid = ?";
+        
+        jdbc.update(deleteOrder, id);
+        
+        final String deleteUser = "DELETE FROM users WHERE id = ?";
+        
+        jdbc.update(deleteUser, id);
     }
     
     public static final class UserMapper implements RowMapper<User> {

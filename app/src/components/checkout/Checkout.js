@@ -18,7 +18,7 @@ class Checkout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: 4,
+      userId: 1,
       products: [],
       order: {},
       totalPrice: "",

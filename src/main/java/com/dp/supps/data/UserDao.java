@@ -8,8 +8,8 @@ public interface UserDao {
     User getUserById(int id);
 
     List<User> getAllUsers();
-    
-    User getUserByUsername(String username);
 
     User createUser(User user);
+    
+    void deleteUserById(int id);
 }

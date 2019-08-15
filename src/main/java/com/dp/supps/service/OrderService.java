@@ -4,7 +4,6 @@ import com.dp.supps.data.OrderDaoDB;
 import com.dp.supps.entities.Order;
 import com.dp.supps.entities.Product;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +19,7 @@ public class OrderService {
     }
 
     public List<Order> getAllOrders() {
-        List<Order> orders = orderDao.getAllOrders();
-        return orders;
+        return orderDao.getAllOrders();
     }
 
     public List<Order> getSentOrders() {
@@ -56,9 +54,7 @@ public class OrderService {
             
         } else {
             Order newOrder = new Order();
-            
             newOrder.setUserId(userId);
-            
             return createOrder(newOrder);
         }
     }
@@ -76,9 +72,6 @@ public class OrderService {
     }
 
     public Order completeOrder(Order order) {
-        // set orderSent to true
-        order.setOrderSent(true);
-
         return orderDao.completeOrder(order);
     }
 
@@ -87,16 +80,6 @@ public class OrderService {
     }
 
     public Order createOrder(Order order) {
-        // set order id
-        List<Order> orders = getAllOrders();
-
-        Order last = orders.get(orders.size() - 1);
-
-        order.setOrderId(last.getOrderId() + 1);
-
-        // set order date
-        order.setOrderDate(LocalDate.now());
-
         return orderDao.createOrder(order);
     }
 }

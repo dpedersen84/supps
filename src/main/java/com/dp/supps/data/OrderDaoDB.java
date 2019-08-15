@@ -5,6 +5,7 @@ import com.dp.supps.entities.Order;
 import com.dp.supps.entities.Product;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +84,9 @@ public class OrderDaoDB implements OrderDao {
     public Order completeOrder(Order order) {
         final String update = "UPDATE orders SET totalPrice = ?, orderSent = ? WHERE orderId = ?";
 
+        // set orderSent to true to complete the order
+        order.setOrderSent(true);
+
         jdbc.update(update, order.getTotalPrice(), order.isOrderSent(), order.getOrderId());
 
         return order;
@@ -90,9 +94,18 @@ public class OrderDaoDB implements OrderDao {
 
     @Override
     public Order createOrder(Order order) {
-        final String sql = "INSERT INTO orders (orderId, totalPrice, orderDate, userId, orderSent) VALUES (?, ?, ?, ?, ?)";
+        // set order date
+        order.setOrderDate(LocalDate.now());
 
-        jdbc.update(sql, order.getOrderId(), order.getTotalPrice(), order.getOrderDate(), order.getUserId(), order.isOrderSent());
+        final String sql = "INSERT INTO orders (totalPrice,"
+                + " orderDate, userId, orderSent) VALUES (?, ?, ?, ?)"
+                + " RETURNING orderId";
+
+        int id = jdbc.queryForObject(sql, new Object[]{order.getTotalPrice(),
+            order.getOrderDate(), order.getUserId(), order.isOrderSent()},
+                Integer.class);
+
+        order.setOrderId(id);
 
         return order;
     }
@@ -116,16 +129,6 @@ public class OrderDaoDB implements OrderDao {
         final String sql = "SELECT p.* FROM product p JOIN orderproduct op ON op.productid = p.productid WHERE op.orderid = ?";
         List<Product> products = jdbc.query(sql, new ProductMapper(), orderId);
         return products;
-    }
-
-    public void insertIntoOrderProduct(Order order) {
-        final String sql = "INSERT INTO orderproduct (orderId, productId) VALUES (?, ?)";
-
-        List<Product> products = order.getProducts();
-
-        for (Product product : products) {
-            jdbc.update(sql, order.getOrderId(), product.getProductId());
-        }
     }
 
     public void addToOrderProduct(int orderId, int productId) {
@@ -153,5 +156,4 @@ public class OrderDaoDB implements OrderDao {
             return order;
         }
     }
-
 }

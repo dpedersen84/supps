@@ -43,15 +43,7 @@ public class UserService {
         return userDao.createUser(user);
     }
     
-    public User getUserByUsername(String username, String password) {
-        User user = userDao.getUserByUsername(username);
-        
-        if (user != null) {
-            if (user.getPassword().equals(password)) {
-                return user;
-            }
-        }
-
-        return null;
+    public void deleteUserById(int id) {
+        userDao.deleteUserById(id);
     }
 }
