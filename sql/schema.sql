@@ -48,13 +48,13 @@ insert into product(name, price, inventory, goalId, categoryId, headline, image)
 	('Pro', 55.00, 10, 1, 1, '30 grams of whey protein isolate in one serving of our Pro whey protein!', 'https://i.imgur.com/NEi3QYN.png'),
 	('Yo!', 25.00, 10, 3, 2, 'Lower dose caffeine in this super formulated pre-workout product.', 'https://i.imgur.com/kWZVBOg.png'),
 	('Veg Pro', 65.00, 10, 1, 1, '25 grams of veggie protein formulated for Vegetarians and Vegans looking to gain quality muscle!', 'https://i.imgur.com/aDvQDmF.png'),
-	('Starve Me', 22.00, 10, 2, 3, 'Kill your appetite with Starve Me!', 'https://i.imgur.com/E3qDu3r.jpg'),
+	('Starve Me', 22.00, 10, 2, 3, 'Kill your appetite with Starve Me!', 'https://i.imgur.com/3YjQaT7.jpg'),
 	('sPills', 30.00, 10, 4, 4, 'Increase overall health with our sPills multi-vitamins!', 'https://i.imgur.com/qCb1M6S.png'),
-	('Creature', 45.00, 10, 5, 5, 'Strength gains through the roof with Creature pure creatine powder!', 'https://i.imgur.com/yLCzLyM.jpg'),
+	('Creature', 45.00, 10, 5, 5, 'Strength gains through the roof with Creature pure creatine powder!', 'https://i.imgur.com/IBqFUi3.jpg'),
 	('Brain Food', 30.00, 10, 6, 4, 'Gain mental focus and clarity with our proprietary blend of vitamins and minerals!', 'https://i.imgur.com/VlZvrpo.png'),
 	('MuscleFinger', 12.00, 10, 1, 6, 'Build muscle on the go with our protein bar MuscleFinger!', 'https://i.imgur.com/jHW3eIr.png'),
-	('Fish Burps', 20.00, 10, 4, 4, 'Skin, eye, hair, nail and heart health all in one pill!', 'https://i.imgur.com/piryjcn.jpg'),
-	('I''m Full', 50.00, 10, 1, 6, 'Calorie intake through the roof with patented weight gainer, I''m Full!', 'https://i.imgur.com/Rm1TMa9.jpg'),
+	('Fish Burps', 20.00, 10, 4, 4, 'Skin, eye, hair, nail and heart health all in one pill!', 'https://i.imgur.com/pWeeQA5.png'),
+	('I''m Full', 50.00, 10, 1, 6, 'Calorie intake through the roof with patented weight gainer, I''m Full!', 'https://i.imgur.com/Gzmuf3k.jpg'),
 	('Blue Cow', 4.00, 10, 3, 2, 'Forget Red Bull, Blue Cow is here!', 'https://i.imgur.com/lAMzL3Q.jpg');
 
 create table review(
