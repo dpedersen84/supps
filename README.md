@@ -1,7 +1,7 @@
 # supps
 Retail application selling psuedo supplements.
 
-#####Tech Used
+##### Tech Used
 1. React.js
 2. Java
 3. Spring Boot
